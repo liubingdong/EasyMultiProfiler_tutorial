@@ -1,10 +1,10 @@
 
 <!DOCTYPE HTML>
-<html lang="ch" >
+<html lang="en" >
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>8.3 EMP_dotplot · Bingdong Liu</title>
+        <title>6.12 EMP_nework_analysis · Bingdong Liu</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -80,10 +80,10 @@
     <link rel="shortcut icon" href="../../gitbook/images/favicon.ico" type="image/x-icon">
 
     
-    <link rel="next" href="8.4 EMP_netplot.html" />
+    <link rel="next" href="7 data support.html" />
     
     
-    <link rel="prev" href="8.2 EMP_scatterplot.html" />
+    <link rel="prev" href="6.11 EMP_multi_analysis.html" />
     
 
     
@@ -638,6 +638,19 @@
             
         </li>
     
+        <li class="chapter active" data-level="1.1.6.12" data-path="6.12 EMP_network_analysis.html">
+            
+                <a href="6.12 EMP_network_analysis.html">
+            
+                    
+                    6.12 EMP_nework_analysis
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -819,12 +832,12 @@
             
         </li>
     
-        <li class="chapter active" data-level="1.1.8.3" data-path="8.3 EMP_dotplot.html">
+        <li class="chapter " data-level="1.1.8.3" data-path="8.3 EMP_enrich_dotplot.html">
             
-                <a href="8.3 EMP_dotplot.html">
+                <a href="8.3 EMP_enrich_dotplot.html">
             
                     
-                    8.3 EMP_dotplot
+                    8.3 EMP_enrich_dotplot
             
                 </a>
             
@@ -832,12 +845,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.1.8.4" data-path="8.4 EMP_netplot.html">
+        <li class="chapter " data-level="1.1.8.4" data-path="8.4 EMP_enrich_netplot.html">
             
-                <a href="8.4 EMP_netplot.html">
+                <a href="8.4 EMP_enrich_netplot.html">
             
                     
-                    8.4 EMP_netplot
+                    8.4 EMP_enrich_netplot
             
                 </a>
             
@@ -858,12 +871,12 @@
             
         </li>
     
-        <li class="chapter " data-level="1.1.8.6" data-path="8.6 EMP_curveplot.html">
+        <li class="chapter " data-level="1.1.8.6" data-path="8.6 EMP_gsea_plot.html">
             
-                <a href="8.6 EMP_curveplot.html">
+                <a href="8.6 EMP_gsea_plot.html">
             
                     
-                    8.6 EMP_curveplot
+                    8.6 EMP_gsea_plot
             
                 </a>
             
@@ -923,6 +936,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.1.8.11" data-path="8.11 EMP_network_plot.html">
+            
+                <a href="8.11 EMP_network_plot.html">
+            
+                    
+                    8.11 EMP_network_plot
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -974,6 +1000,19 @@
             
                     
                     9.3 EMP_to_EMP1
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.9.4" data-path="9. More Usefull Tools.html">
+            
+                <a href="9. More Usefull Tools.html#94">
+            
+                    
+                    9.4 top_detect
             
                 </a>
             
@@ -1118,7 +1157,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >8.3 EMP_dotplot</a>
+        <a href=".." >6.12 EMP_nework_analysis</a>
     </h1>
 </div>
 
@@ -1133,25 +1172,85 @@
     
                                 <section class="normal markdown-section">
                                 
-                                <h2 id="83-&#x5BCC;&#x96C6;&#x70B9;&#x72B6;&#x56FE;-empdotplot">8.3 &#x5BCC;&#x96C6;&#x70B9;&#x72B6;&#x56FE; EMP_dotplot</h2>
-<p>&#x6A21;&#x5757;EMP_dotplot&#x7528;&#x4E8E;&#x5BF9;&#x63A5;&#x5BCC;&#x96C6;&#x5206;&#x6790;&#x540E;&#x7684;&#x5BCC;&#x96C6;&#x70B9;&#x72B6;&#x56FE;&#x3002;</p>
-<h3 id="831-kegg&#x5BCC;&#x96C6;&#x5206;&#x6790;&#x7684;&#x53EF;&#x89C6;&#x5316;">8.3.1 KEGG&#x5BCC;&#x96C6;&#x5206;&#x6790;&#x7684;&#x53EF;&#x89C6;&#x5316;</h3>
-<p>&#x6A21;&#x5757;<code>EMP_dotplot</code>&#x7EE7;&#x627F;&#x4E86;<code>enrichplot</code>&#x5305;&#x7684;<code>dotplot</code>&#xFF0C;&#x53EF;&#x4EE5;&#x5BF9;&#x5BCC;&#x96C6;&#x5206;&#x6790;&#x7684;&#x7ED3;&#x679C;&#x8FDB;&#x884C;&#x53EF;&#x89C6;&#x5316;&#x3002;</p>
-<p>&#x1F3F7;&#xFE0F;<strong>&#x793A;&#x4F8B;&#xFF1A;</strong></p>
+                                <h2 id="612--empnetworkanalysis">6.12  EMP_network_analysis</h2>
+<p>The EMP_multi_analysis module aims to construct network relationships between features to analyze their interactions and identify key feature nodes. This module not only assesses the relationships within single-omics features but also further explores the network interactions between different omics, offering a more comprehensive systems biology perspective.</p>
+<h3 id="6121-single-omics-network">6.12.1 single-omics network</h3>
+<div style="background-color: #ffffcc; border: 1px solid #ffcc00; padding: 10px;">
+Note&#xFF1A;<br>
+Parameter<code>coldata_to_assay</code>could inlcude the interesting coldata into the network.<br>
+</div>
+
+<p>&#x1F3F7;&#xFE0F;<strong>Example&#xFF1A;</strong></p>
+<p><strong>1.Network between differential genus taxa and coldata</strong></p>
 <pre class="language-"><code class="lang-R">MAE |&gt;
-  EMP_assay_extract(experiment = &apos;geno_ec&apos;) |&gt;
-  EMP_diff_analysis(method=&apos;DESeq2&apos;,.formula = ~Group) |&gt;
-  EMP_enrich_analysis(condition = pvalue&lt;0.05,keyType =&apos;ec&apos;,KEGG_Type = &apos;KEGG&apos;,
-                      pvalueCutoff=0.05,species = &apos;all&apos;,combineGroup = FALSE) |&gt;
-  EMP_dotplot()
+  EMP_assay_extract(&apos;taxonomy&apos;) |&gt;
+  EMP_collapse(estimate_group = &apos;Genus&apos;,collapse_by = &apos;row&apos;) |&gt;
+  EMP_diff_analysis(method=&apos;wilcox.test&#x3001;&apos;, estimate_group = &apos;Group&apos;) |&gt;
+  EMP_filter(feature_condition = pvalue&lt;0.05) |&gt;
+  EMP_network_analysis(coldata_to_assay = c(&apos;BMI&apos;,&apos;PHQ9&apos;,&apos;GAD7&apos;))
 </code></pre>
-<center class="half">    
-  <img src="../tutorial_figs/ec_enrich_dotplot.jpg" alt="cooc1" style="zoom:40%;">  
-</center>
+<p><img src="../tutorial_figs/tax_coldata_network.jpg" alt=""></p>
+<p><strong>2.Visualization of the node importance.</strong></p>
+<pre class="language-"><code class="lang-R">MAE |&gt;
+  EMP_assay_extract(&apos;taxonomy&apos;) |&gt;
+  EMP_collapse(estimate_group = &apos;Genus&apos;,collapse_by = &apos;row&apos;) |&gt;
+  EMP_diff_analysis(method=&apos;wilcox.test&apos;, estimate_group = &apos;Group&apos;) |&gt;
+  EMP_filter(feature_condition = pvalue&lt;0.05) |&gt;
+  EMP_network_analysis(coldata_to_assay = c(&apos;BMI&apos;,&apos;PHQ9&apos;,&apos;GAD7&apos;)) |&gt;
+  EMP_network_plot(show=&apos;node&apos;)
+</code></pre>
+<div style="text-align: center;">     
+  <img src="../tutorial_figs/tax_coldata_network_node.jpg" style="zoom: 50%;"> 
+</div>
 
+<p><strong>3.Filter the two most important taxa according to the network result</strong></p>
+<pre class="language-"><code class="lang-R">MAE |&gt;
+  EMP_assay_extract(&apos;taxonomy&apos;) |&gt;
+  EMP_collapse(estimate_group = &apos;Genus&apos;,collapse_by = &apos;row&apos;) |&gt;
+  EMP_diff_analysis(method=&apos;wilcox.test&apos;, estimate_group = &apos;Group&apos;) |&gt;
+  EMP_filter(feature_condition = pvalue&lt;0.05) |&gt;
+  EMP_network_analysis(coldata_to_assay = c(&apos;BMI&apos;,&apos;PHQ9&apos;,&apos;GAD7&apos;)) |&gt;
+  EMP_filter(feature_condition = top_detect(Betweenness,2))
+</code></pre>
+<p><img src="../tutorial_figs/tax_coldata_network2.jpg" alt=""></p>
+<h3 id="6122-multi-omics-network">6.12.2 Multi-omics network</h3>
+<p>&#x1F3F7;&#xFE0F;<strong>Example&#xFF1A;</strong></p>
+<p><strong>1.Network between microbiome and metabolite</strong></p>
+<pre class="language-"><code class="lang-R">k1 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>-</span> <span class="token attr-name">MAE</span> <span class="token attr-name">|</span><span class="token punctuation">&gt;</span></span>
+  EMP_assay_extract(&apos;taxonomy&apos;) |&gt;
+  EMP_collapse(estimate_group = &apos;Genus&apos;,collapse_by = &apos;row&apos;) |&gt;
+  EMP_diff_analysis(method=&apos;wilcox.test&apos;, estimate_group = &apos;Group&apos;) |&gt;
+  EMP_filter(feature_condition = pvalue&lt;0.05)
 
+k2 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>-</span> <span class="token attr-name">MAE</span> <span class="token attr-name">|</span><span class="token punctuation">&gt;</span></span>
+  EMP_collapse(experiment = &apos;untarget_metabol&apos;,na_string=c(&apos;NA&apos;,&apos;null&apos;,&apos;&apos;,&apos;-&apos;),
+               estimate_group = &apos;MS2kegg&apos;,method = &apos;sum&apos;,collapse_by = &apos;row&apos;) |&gt;
+  EMP_diff_analysis(method=&apos;DESeq2&apos;, .formula = ~Group) |&gt;
+  EMP_filter(feature_condition = pvalue&lt;0.05)
+
+(k1 + k2 ) |&gt; 
+  EMP_network_analysis()
+</code></pre>
+<p><img src="../tutorial_figs/tax_metabo_network.jpg" alt=""></p>
+<p><strong>2.Network visualization</strong></p>
+<div style="background-color: #ffffcc; border: 1px solid #ffcc00; padding: 10px;">
+Note&#xFF1A;<br>
+&#x2460;Paramter<code>node_info</code> could add more info to the node according to their rowdata.<br>
+&#x2461;More paramters in the function qgraph.<br>
+</div>
+
+<pre class="language-"><code class="lang-R">(k1 + k2 ) |&gt; 
+  EMP_network_analysis() |&gt; 
+  EMP_network_plot(show = &apos;net&apos;,layout = &apos;spring&apos;,
+                   shape=&apos;diamond&apos;,
+                   edge.labels=TRUE,edge.label.cex=0.4,
+                   vsize = 5,threshold = 0.4,
+                   node_info = c(&apos;Phylum&apos;,&apos;MS2class&apos;),
+                   legend.cex=0.3,label.cex = 1,label.prop = 0.9,font=2)
+</code></pre>
+<p><img src="../tutorial_figs/tax_metabo_network_plot.jpg" style="zoom:50%;"></p>
 <footer class="page-footer"><span class="copyright">Copyright &#xA9; 382983280@qq.com 2024 all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">&#x66F4;&#x65B0;&#x65F6;&#x95F4;&#xFF1A;
-2024-08-20 12:04:28
+2025-02-09 00:19:02
 </span></footer>
                                 
                                 </section>
@@ -1179,12 +1278,12 @@
 
             
                 
-                <a href="8.2 EMP_scatterplot.html" class="navigation navigation-prev " aria-label="Previous page: 8.2 EMP_scatterplot">
+                <a href="6.11 EMP_multi_analysis.html" class="navigation navigation-prev " aria-label="Previous page: 6.11 EMP_multi_analysis">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
                 
-                <a href="8.4 EMP_netplot.html" class="navigation navigation-next " aria-label="Next page: 8.4 EMP_netplot">
+                <a href="7 data support.html" class="navigation navigation-next " aria-label="Next page: Chapter 7 Data support">
                     <i class="fa fa-angle-right"></i>
                 </a>
                 
@@ -1195,7 +1294,7 @@
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"8.3 EMP_dotplot","level":"1.1.8.3","depth":3,"next":{"title":"8.4 EMP_netplot","level":"1.1.8.4","depth":3,"path":"MD/8.4 EMP_netplot.md","ref":"MD/8.4 EMP_netplot.md","articles":[]},"previous":{"title":"8.2 EMP_scatterplot","level":"1.1.8.2","depth":3,"path":"MD/8.2 EMP_scatterplot.md","ref":"MD/8.2 EMP_scatterplot.md","articles":[]},"dir":"ltr"},"config":{"plugins":["code","pageview-count","tbfed-pagefooter","favicon","-highlight","prism","google-tongji-with-multiple-channel","search-pro","expandable-chapters","hide-element","back-to-top-button","splitter","auto-scroll-table","-lunr","-search","-sharing","sharing-plus","chapter-fold","multilingual-index"],"styles":{"website":"assets/styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © 382983280@qq.com 2024","modify_label":"更新时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"chapter-fold":{},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"livereload":{},"splitter":{},"google-tongji-with-multiple-channel":{"multipleChannelConfig":{},"url":"https://www.googletagmanager.com/gtag/js","token":"G-YE9M3Z1JB4"},"search-pro":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"auto-scroll-table":{},"code":{"copyButtons":true},"hide-element":{"elements":[".gitbook-link"]},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"assets/favicon.ico","bookmark":"assets/favicon.ico","appleTouch":"assets/favicon.ico","appleTouchMore":{"120x120":"assets/favicon.ico","180x180":"assets/favicon.ico"}},"multilingual-index":{"enableSuper":true},"back-to-top-button":{},"pageview-count":{},"sharing":{"all":["facebook","google","linkedin","twitter","weibo","qq"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"theme":"default","author":"Bingdong Liu","pdf":{"pageBreaksBefore":"/","headerTemplate":null,"paperSize":"a4","margin":{"right":62,"left":62,"top":56,"bottom":56},"fontSize":12,"fontFamily":"Arial","footerTemplate":null,"chapterMark":"pagebreak","pageNumbers":true},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"isbn":"","variables":{},"title":"Bingdong Liu","language":"ch","links":{"sharing":{"all":true,"facebook":true,"google":true,"twitter":true,"weibo":true},"sidebar":{"EasyMultiProfiler":"https://github.com/liubingdong/EasyMultiProfiler"}},"gitbook":"*","description":"EasyMultiProfiler.","extension":null},"file":{"path":"MD/8.3 EMP_dotplot.md","mtime":"2024-08-20T04:04:28.000Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2025-01-26T16:43:40.162Z"},"basePath":"..","book":{"language":"ch"}});
+            gitbook.page.hasChanged({"page":{"title":"6.12 EMP_nework_analysis","level":"1.1.6.12","depth":3,"next":{"title":"Chapter 7 Data support","level":"1.1.7","depth":2,"path":"MD/7 data support.md","ref":"MD/7 data support.md","articles":[{"title":"7.1 EMP_filter","level":"1.1.7.1","depth":3,"path":"MD/7.1 data_filter.md","ref":"MD/7.1 data_filter.md","articles":[]},{"title":"7.2 EMP_history","level":"1.1.7.2","depth":3,"path":"MD/7.2 EMP_history.md","ref":"MD/7.2 EMP_history.md","articles":[]},{"title":"7.3 EMP_result","level":"1.1.7.3","depth":3,"path":"MD/7.3 EMP_result.md","ref":"MD/7.3 EMP_result.md","articles":[]},{"title":"7.4 EMP_summary","level":"1.1.7.4","depth":3,"path":"MD/7.4 EMP_summary.md","ref":"MD/7.4 EMP_summary.md","articles":[]},{"title":"7.5 EMP_saver_var","level":"1.1.7.5","depth":3,"path":"MD/7.5 EMP_save_var.md","ref":"MD/7.5 EMP_save_var.md","articles":[]},{"title":"7.6 EMP_taxonomy_import","level":"1.1.7.6","depth":3,"path":"MD/7.6 EMP_taxonomy_import.md","ref":"MD/7.6 EMP_taxonomy_import.md","articles":[]},{"title":"7.7 EMP_function_import","level":"1.1.7.7","depth":3,"path":"MD/7.7 EMP_function_import.md","ref":"MD/7.7 EMP_function_import.md","articles":[]},{"title":"7.8 EMP_normal_import","level":"1.1.7.8","depth":3,"path":"MD/7.8 EMP_normal_import.md","ref":"MD/7.8 EMP_normal_import.md","articles":[]},{"title":"7.9 EMP_easy_import","level":"1.1.7.9","depth":3,"path":"MD/7.9 EMP_easy_import.md","ref":"MD/7.9 EMP_easy_import.md","articles":[]}]},"previous":{"title":"6.11 EMP_multi_analysis","level":"1.1.6.11","depth":3,"path":"MD/6.11 EMP_multi_analysis.md","ref":"MD/6.11 EMP_multi_analysis.md","articles":[]},"dir":"ltr"},"config":{"plugins":["code","pageview-count","tbfed-pagefooter","favicon","-highlight","prism","google-tongji-with-multiple-channel","search-pro","expandable-chapters","hide-element","back-to-top-button","splitter","auto-scroll-table","-lunr","-search","-sharing","sharing-plus","chapter-fold","multilingual-index"],"styles":{"website":"assets/styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © 382983280@qq.com 2024","modify_label":"更新时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"chapter-fold":{},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"livereload":{},"splitter":{},"google-tongji-with-multiple-channel":{"multipleChannelConfig":{},"url":"https://www.googletagmanager.com/gtag/js","token":"G-YE9M3Z1JB4"},"search-pro":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"auto-scroll-table":{},"code":{"copyButtons":true},"hide-element":{"elements":[".gitbook-link"]},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"assets/favicon.ico","bookmark":"assets/favicon.ico","appleTouch":"assets/favicon.ico","appleTouchMore":{"120x120":"assets/favicon.ico","180x180":"assets/favicon.ico"}},"multilingual-index":{"enableSuper":true},"back-to-top-button":{},"pageview-count":{},"sharing":{"all":["facebook","google","linkedin","twitter","weibo","qq"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"theme":"default","author":"Bingdong Liu","pdf":{"pageBreaksBefore":"/","headerTemplate":null,"paperSize":"a4","margin":{"right":62,"left":62,"top":56,"bottom":56},"fontSize":12,"fontFamily":"Arial","footerTemplate":null,"chapterMark":"pagebreak","pageNumbers":true},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"isbn":"","variables":{},"title":"Bingdong Liu","language":"en","links":{"sharing":{"all":true,"facebook":true,"google":true,"twitter":true,"weibo":true},"sidebar":{"EasyMultiProfiler":"https://github.com/liubingdong/EasyMultiProfiler"}},"gitbook":"*","description":"EasyMultiProfiler.","extension":null},"file":{"path":"MD/6.12 EMP_network_analysis.md","mtime":"2025-02-08T16:19:02.942Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2025-02-08T16:20:56.490Z"},"basePath":"..","book":{"language":"en"}});
         });
     </script>
 </div>
