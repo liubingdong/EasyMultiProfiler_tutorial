@@ -1339,6 +1339,10 @@ MAE |&gt;
   EMP_alpha_analysis() |&gt;
   EMP_boxplot(estimate_group = &apos;Group&apos;)
 </code></pre>
+<div style="text-align: center;">     
+  <img src="../tutorial_figs/single_micro_alpha.jpg" style="zoom: 40%;"> 
+</div>
+
 <h3 id="1068-&#x5FAE;&#x751F;&#x7269;beta&#x591A;&#x6837;&#x6027;&#x5206;&#x6790;">10.6.8 &#x5FAE;&#x751F;&#x7269;beta&#x591A;&#x6837;&#x6027;&#x5206;&#x6790;</h3>
 <p><strong>&#x8BA1;&#x7B97;&#x6838;&#x5FC3;&#x5C5E;&#x7684;beta&#x591A;&#x6837;&#x6027;&#x5E76;&#x7ED8;&#x5236;&#x6210;&#x56FE;</strong></p>
 <pre class="language-"><code class="lang-R">MAE |&gt;
@@ -1347,8 +1351,12 @@ MAE |&gt;
   EMP_identify_assay(estimate_group = &apos;Group&apos;,method = &apos;default&apos;,
                      min=0.001,min_ratio = 0.7) |&gt;
   EMP_dimension_analysis(method = &apos;pcoa&apos;,distance = &apos;bray&apos;) |&gt;
-  EMP_scatterplot(estimate_group = &apos;Group&apos;,show=&apos;p12html&apos;)
+  EMP_scatterplot(estimate_group = &apos;Group&apos;,show=&apos;p12html&apos;,ellipse=0.3)
 </code></pre>
+<div style="text-align: center;">     
+  <img src="../tutorial_figs/single_micro_beta.jpg" style="zoom: 40%;"> 
+</div>
+
 <h3 id="1069-&#x5FAE;&#x751F;&#x7269;&#x5DEE;&#x5F02;&#x5206;&#x6790;">10.6.9 &#x5FAE;&#x751F;&#x7269;&#x5DEE;&#x5F02;&#x5206;&#x6790;</h3>
 <p><strong>&#x8BA1;&#x7B97;&#x6838;&#x5FC3;&#x5C5E;&#x7684;wilcox&#x5DEE;&#x5F02;&#x6027;&#x5206;&#x6790;,&#x5E76;&#x7B5B;&#x9009;&#x51FA;&#x5DEE;&#x5F02;&#x83CC;&#x5C5E;</strong></p>
 <pre class="language-"><code class="lang-R">MAE |&gt;
@@ -1376,8 +1384,13 @@ MAE |&gt;
   EMP_marker_analysis(method = &apos;boruta&apos;,estimate_group = &apos;Group&apos;) |&gt;
   EMP_filter(feature_condition = Boruta_decision!= &apos;Rejected&apos;) |&gt;
   EMP_heatmap_plot(palette=&apos;Spectral&apos;,legend_bar=&apos;auto&apos;,
+                   scale=&apos;standardize&apos;,
                    clust_row=TRUE,clust_col=TRUE)
 </code></pre>
+<div style="text-align: center;">     
+  <img src="../tutorial_figs/single_micro_boruta.jpg" style="zoom: 40%;"> 
+</div>
+
 <p><strong>&#x4F7F;&#x7528;Lasso&#x7B97;&#x6CD5;&#x7B5B;&#x9009;&#x51FA;&#x4E0E;&#x8868;&#x578B;&#x6570;&#x636E;&#x4E2D;Height&#x5BC6;&#x5207;&#x76F8;&#x5173;&#x7684;&#x83CC;&#x5C5E;&#x5E76;&#x6309;&#x7167;&#x5206;&#x7EC4;&#x7ED8;&#x5236;&#x6210;&#x70ED;&#x56FE;</strong></p>
 <pre class="language-"><code class="lang-R">MAE |&gt;
   EMP_assay_extract() |&gt; 
@@ -1388,13 +1401,21 @@ MAE |&gt;
   EMP_filter(feature_condition = lasso_coe &gt; 0) |&gt;
   EMP_collapse(method = &apos;mean&apos;,estimate_group = &apos;Group&apos;,
                collapse_by = &apos;col&apos;) |&gt;
-  EMP_heatmap_plot(palette=&apos;Spectral&apos;,legend_bar=&apos;auto&apos;)
+  EMP_heatmap_plot(palette=&apos;Spectral&apos;,legend_bar=&apos;auto&apos;,
+                   clust_row = TRUE,
+                   scale=&apos;standardize&apos;)
 </code></pre>
+<div style="text-align: center;">     
+  <img src="../tutorial_figs/single_micro_lasso.jpg" style="zoom: 40%;"> 
+</div>
+
 <h3 id="10611-&#x5FAE;&#x751F;&#x7269;&#x4E0E;&#x8868;&#x578B;&#x7684;&#x76F8;&#x5173;&#x6027;&#x5206;&#x6790;">10.6.11 &#x5FAE;&#x751F;&#x7269;&#x4E0E;&#x8868;&#x578B;&#x7684;&#x76F8;&#x5173;&#x6027;&#x5206;&#x6790;</h3>
-<p><strong>&#x7ED8;&#x5236;&#x95E8;&#x7EA7;&#x522B;&#x4E0E;&#x8868;&#x578B;&#x6570;&#x636E;&#x76F8;&#x5173;&#x6027;&#x70ED;&#x56FE;</strong></p>
-<pre class="language-"><code class="lang-R">phylum_data <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>-</span> <span class="token attr-name">MAE</span> <span class="token attr-name">|</span><span class="token punctuation">&gt;</span></span>
+<p><strong>&#x7ED8;&#x5236;&#x5DEE;&#x5F02;&#x83CC;&#x5C5E;&#x4E0E;&#x8868;&#x578B;&#x6570;&#x636E;&#x76F8;&#x5173;&#x6027;&#x70ED;&#x56FE;</strong></p>
+<pre class="language-"><code class="lang-R">diff_genus <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>-</span> <span class="token attr-name">MAE</span> <span class="token attr-name">|</span><span class="token punctuation">&gt;</span></span>
   EMP_assay_extract() |&gt;
-  EMP_collapse(collapse_by = &apos;row&apos;,estimate_group = &apos;Phylum&apos;)
+  EMP_collapse(collapse_by = &apos;row&apos;,estimate_group = &apos;Genus&apos;) |&gt;
+  EMP_diff_analysis(method = &apos;wilcox.test&apos;,estimate_group = &apos;Group&apos;) |&gt;
+  EMP_filter(feature_condition = pvalue &lt; 0.05)
 
 meta_data <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>-</span> <span class="token attr-name">MAE</span> <span class="token attr-name">|</span><span class="token punctuation">&gt;</span></span>
   EMP_coldata_extract(action = &apos;add&apos;)
@@ -1403,6 +1424,10 @@ meta_data <span class="token tag"><span class="token tag"><span class="token pun
   EMP_cor_analysis() |&gt;
   EMP_heatmap_plot()
 </code></pre>
+<div style="text-align: center;">     
+  <img src="../tutorial_figs/single_micro_cor.jpg" style="zoom: 40%;"> 
+</div>
+
 <h3 id="10612-&#x5FAE;&#x751F;&#x7269;&#x4E0E;&#x8868;&#x578B;&#x7684;&#x7EBF;&#x6027;&#x62DF;&#x5408;">10.6.12 &#x5FAE;&#x751F;&#x7269;&#x4E0E;&#x8868;&#x578B;&#x7684;&#x7EBF;&#x6027;&#x62DF;&#x5408;</h3>
 <p><strong>&#x7ED8;&#x5236;Blautia&#x83CC;&#x5C5E;&#x4E0E;&#x8868;&#x578B;&#x6570;&#x636E;&#x4E2D;BMI&#x7684;&#x7EBF;&#x6027;&#x62DF;&#x5408;</strong></p>
 <pre class="language-"><code class="lang-R">MAE |&gt;
@@ -1410,6 +1435,10 @@ meta_data <span class="token tag"><span class="token tag"><span class="token pun
   EMP_collapse(collapse_by = &apos;row&apos;,estimate_group = &apos;Genus&apos;) |&gt;
   EMP_fitline_plot(var_select=c(&apos;Blautia&apos;,&apos;BMI&apos;))
 </code></pre>
+<div style="text-align: center;">     
+  <img src="../tutorial_figs/single_micro_fit.jpg" style="zoom: 40%;"> 
+</div>
+
 <h3 id="10613-&#x5FAE;&#x751F;&#x7269;&#x7684;&#x7F51;&#x7EDC;&#x5206;&#x6790;">10.6.13 &#x5FAE;&#x751F;&#x7269;&#x7684;&#x7F51;&#x7EDC;&#x5206;&#x6790;</h3>
 <p><strong>&#x7B5B;&#x9009;&#x51FA;&#x5DEE;&#x5F02;&#x83CC;&#x5C5E;&#x5E76;&#x4E0E;&#x90E8;&#x5206;&#x8868;&#x578B;&#x6570;&#x636E;&#x7ED8;&#x5236;&#x7F51;&#x7EDC;&#x5206;&#x6790;&#x56FE;</strong></p>
 <pre class="language-"><code class="lang-R">MAE |&gt;
@@ -1420,8 +1449,84 @@ meta_data <span class="token tag"><span class="token tag"><span class="token pun
   EMP_network_analysis(coldata_to_assay = c(&apos;BMI&apos;,&apos;PHQ9&apos;,&apos;GAD7&apos;)) |&gt;
   EMP_network_plot(node_info = &apos;Phylum&apos;,label.cex = 1,edge.labels = TRUE)
 </code></pre>
+<div style="text-align: center;">     
+  <img src="../tutorial_figs/single_micro_net.jpg" style="zoom: 40%;"> 
+</div>
+
+<h3 id="10614-&#x5FAE;&#x751F;&#x7269;&#x7684;mantel&#x5206;&#x6790;&#x53CA;&#x53EF;&#x89C6;&#x5316;">10.6.14 &#x5FAE;&#x751F;&#x7269;&#x7684;mantel&#x5206;&#x6790;&#x53CA;&#x53EF;&#x89C6;&#x5316;</h3>
+<p>&#x1F3F7;&#xFE0F;<strong>&#x793A;&#x4F8B;&#xFF1A;&#x5229;&#x7528;BMI&#x8BA1;&#x7B97;&#x5DEE;&#x5F02;&#x83CC;&#x5C5E;&#x548C;&#x53CC;&#x6B67;&#x6746;&#x83CC;&#x7684;&#x5FAE;&#x751F;&#x7269;&#x96C6;&#x4E0E;&#x8868;&#x578B;&#x6570;&#x636E;&#x8FDB;&#x884C;mantel&#x5206;&#x6790;</strong></p>
+<p><strong>&#x7B2C;&#x4E00;&#x6B65;&#xFF1A;&#x5B89;&#x88C5;&#x5E76;&#x52A0;&#x8F7D;linkET&#x5305;</strong></p>
+<pre class="language-"><code class="lang-R">devtools::install_github(&quot;Hy4m/linkET&quot;)
+library(linkET)
+</code></pre>
+<p><strong>&#x7B2C;&#x4E8C;&#x6B65;&#xFF1A;&#x5229;&#x7528;BMI&#x5F62;&#x6210;&#x65B0;&#x7684;&#x5206;&#x7EC4;&#xFF0C;&#x5E76;&#x4F7F;&#x7528;oneway&#x5DEE;&#x5F02;&#x5206;&#x6790;&#x7B5B;&#x9009;&#x663E;&#x8457;&#x5DEE;&#x5F02;&#x7684;&#x83CC;&#x5C5E;</strong></p>
+<pre class="language-"><code class="lang-R">diff_genus <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>-</span> <span class="token attr-name">MAE</span> <span class="token attr-name">|</span><span class="token punctuation">&gt;</span></span>
+  EMP_assay_extract() |&gt;
+  EMP_mutate(Degree = dplyr::case_when(
+    BMI &lt; 18.5                        ~ &quot;Lean&quot;,
+    BMI &gt;= 18.5 &amp; BMI &lt; 24            ~ &quot;Normal&quot;,
+    BMI &gt;= 24 &amp; BMI &lt; 28              ~ &quot;Fat&quot;,
+    TRUE                              ~ &quot;Need Med&quot;
+  ),mutate_by = &apos;sample&apos;,location = &apos;coldata&apos;,.after = Group)|&gt;
+  EMP_decostand(method = &apos;relative&apos;) |&gt;
+  EMP_collapse(estimate_group = &apos;Genus&apos;,collapse_by = &apos;row&apos;) |&gt;
+  EMP_diff_analysis(method = &apos;oneway.test&apos;,estimate_group = &apos;Degree&apos;) |&gt;
+  EMP_filter(feature_condition = pvalue &lt; 0.05) |&gt;
+  EMP_assay_extract(action = &apos;get&apos;)
+diff_genus
+</code></pre>
+<p><strong>&#x7B2C;&#x4E09;&#x6B65;&#xFF1A;&#x7B5B;&#x9009;&#x53CC;&#x6B67;&#x6746;&#x83CC;&#x7684;&#x83CC;&#x5C5E;</strong></p>
+<pre class="language-"><code class="lang-R">Bifidobacterium <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>-</span> <span class="token attr-name">MAE2</span> <span class="token attr-name">|</span><span class="token punctuation">&gt;</span></span>
+  EMP_assay_extract() |&gt;
+  EMP_decostand(method = &apos;relative&apos;) |&gt;
+  EMP_assay_extract(pattern = &apos;Bifidobacterium&apos;,
+                    pattern_ref = &apos;Genus&apos;,action = &apos;get&apos;)
+Bifidobacterium
+</code></pre>
+<p><strong>&#x7B2C;&#x56DB;&#x6B65;&#xFF1A;&#x5408;&#x5E76;&#x4E24;&#x4E2A;&#x5FAE;&#x751F;&#x7269;&#x6570;&#x636E;&#x96C6;&#x5E76;&#x63D0;&#x53D6;&#x51FA;&#x8868;&#x578B;&#x6570;&#x636E;</strong></p>
+<pre class="language-"><code class="lang-R">tax_data <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>-</span> <span class="token attr-name"><span class="token namespace">purrr:</span>:reduce(list(Bifidobacterium,diff_genus),</span>
+                          <span class="token attr-name">inner_join,by</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">&apos;</span>primary<span class="token punctuation">&apos;</span></span><span class="token attr-name">)</span> <span class="token attr-name">|</span><span class="token punctuation">&gt;</span></span>
+  tibble::column_to_rownames(&apos;primary&apos;)
+
+meta_data <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>-</span> <span class="token attr-name">MAE</span> <span class="token attr-name">|</span><span class="token punctuation">&gt;</span></span>
+  EMP_coldata_extract(action = &apos;get&apos;) |&gt;
+  dplyr::select(primary,Weight,BMI,Height,Education_Years) |&gt;
+  tibble::column_to_rownames(&apos;primary&apos;)
+</code></pre>
+<p><strong>&#x7B2C;&#x4E94;&#x6B65;&#xFF1A;&#x6784;&#x5EFA;&#x5FAE;&#x751F;&#x7269;&#x6570;&#x636E;&#x548C;&#x8868;&#x578B;&#x6570;&#x636E;&#x7684;mantel&#x5206;&#x6790;</strong></p>
+<pre class="language-"><code class="lang-R">
+mantel &lt;- mantel_test(tax_data, meta_data,
+                      spec_select = list(Bifido = 1:7,
+                                         Diff = 8:10)) |&gt;
+  mutate(rd = cut(r, breaks = c(-Inf, -0.1, 0.1, Inf),
+                  labels = c(&quot;&lt; -0.1&quot;, &quot;-0.1 - 0.1&quot;, &quot;&gt;= 0.1&quot;)),
+         pd = cut(p, breaks = c(-Inf, 0.01, 0.05, Inf),
+                  labels = c(&quot;&lt; 0.01&quot;, &quot;0.01 - 0.05&quot;, &quot;&gt;= 0.05&quot;)))
+mantel
+</code></pre>
+<p><strong>&#x7B2C;&#x516D;&#x6B65;&#xFF1A;&#x7ED8;&#x5236;mantel&#x53EF;&#x89C6;&#x5316;&#x7ED3;&#x679C;</strong></p>
+<pre class="language-"><code class="lang-R">qcorrplot(correlate(meta_data,method=&apos;pearson&apos;), type = &quot;lower&quot;, diag = FALSE) +
+  geom_square() +
+  geom_couple(aes(colour = pd, size = rd), 
+              data = mantel, 
+              curvature = nice_curvature()) +
+  scale_fill_gradientn(colours = RColorBrewer::brewer.pal(11, &quot;RdBu&quot;)) +
+  scale_size_manual(values = c(0.5, 1, 2)) +
+  scale_colour_manual(values = color_pal(3)) +
+  guides(size = guide_legend(title = &quot;Mantel&apos;s r&quot;,
+                             override.aes = list(colour = &quot;grey35&quot;), 
+                             order = 2),
+         colour = guide_legend(title = &quot;Mantel&apos;s p&quot;, 
+                               override.aes = list(size = 2), 
+                               order = 1),
+         fill = guide_colorbar(title = &quot;Pearson&apos;s r&quot;, order = 2))
+</code></pre>
+<div style="text-align: center;">     
+  <img src="../tutorial_figs/single_micro_mantel.jpg" style="zoom: 40%;"> 
+</div> 
+
 <footer class="page-footer"><span class="copyright">Copyright &#xA9; 382983280@qq.com 2024 all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">&#x66F4;&#x65B0;&#x65F6;&#x95F4;&#xFF1A;
-2025-10-26 00:23:49
+2025-10-27 19:47:03
 </span></footer>
                                 
                                 </section>
@@ -1465,7 +1570,7 @@ meta_data <span class="token tag"><span class="token tag"><span class="token pun
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"10.6 Microbiome example","level":"1.1.10.6","depth":3,"next":{"title":"10.7 Trans example","level":"1.1.10.7","depth":3,"path":"MD/10.7 Trans example.md","ref":"MD/10.7 Trans example.md","articles":[]},"previous":{"title":"10.5 Installation issues","level":"1.1.10.5","depth":3,"path":"MD/10.5 Installation issues.md","ref":"MD/10.5 Installation issues.md","articles":[]},"dir":"ltr"},"config":{"plugins":["code","pageview-count","tbfed-pagefooter","favicon","-highlight","prism","google-tongji-with-multiple-channel","search-pro","expandable-chapters","hide-element","back-to-top-button","splitter","auto-scroll-table","-lunr","-search","-sharing","sharing-plus","chapter-fold","multilingual-index"],"styles":{"website":"assets/styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © 382983280@qq.com 2024","modify_label":"更新时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"chapter-fold":{},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"livereload":{},"splitter":{},"google-tongji-with-multiple-channel":{"multipleChannelConfig":{},"url":"https://www.googletagmanager.com/gtag/js","token":"G-YE9M3Z1JB4"},"search-pro":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"auto-scroll-table":{},"code":{"copyButtons":true},"hide-element":{"elements":[".gitbook-link"]},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"assets/favicon.ico","bookmark":"assets/favicon.ico","appleTouch":"assets/favicon.ico","appleTouchMore":{"120x120":"assets/favicon.ico","180x180":"assets/favicon.ico"}},"multilingual-index":{"enableSuper":true},"back-to-top-button":{},"pageview-count":{},"sharing":{"all":["facebook","google","linkedin","twitter","weibo","qq"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"theme":"default","author":"Bingdong Liu","pdf":{"pageBreaksBefore":"/","headerTemplate":null,"paperSize":"a4","margin":{"right":62,"left":62,"top":56,"bottom":56},"fontSize":12,"fontFamily":"Arial","footerTemplate":null,"chapterMark":"pagebreak","pageNumbers":true},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"isbn":"","variables":{},"title":"Bingdong Liu","language":"ch","links":{"sharing":{"all":true,"facebook":true,"google":true,"twitter":true,"weibo":true},"sidebar":{"EasyMultiProfiler":"https://github.com/liubingdong/EasyMultiProfiler"}},"gitbook":"*","description":"EasyMultiProfiler.","extension":null},"file":{"path":"MD/10.6 Microbiome example.md","mtime":"2025-10-25T16:23:49.966Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2025-10-25T16:50:10.900Z"},"basePath":"..","book":{"language":"ch"}});
+            gitbook.page.hasChanged({"page":{"title":"10.6 Microbiome example","level":"1.1.10.6","depth":3,"next":{"title":"10.7 Trans example","level":"1.1.10.7","depth":3,"path":"MD/10.7 Trans example.md","ref":"MD/10.7 Trans example.md","articles":[]},"previous":{"title":"10.5 Installation issues","level":"1.1.10.5","depth":3,"path":"MD/10.5 Installation issues.md","ref":"MD/10.5 Installation issues.md","articles":[]},"dir":"ltr"},"config":{"plugins":["code","pageview-count","tbfed-pagefooter","favicon","-highlight","prism","google-tongji-with-multiple-channel","search-pro","expandable-chapters","hide-element","back-to-top-button","splitter","auto-scroll-table","-lunr","-search","-sharing","sharing-plus","chapter-fold","multilingual-index"],"styles":{"website":"assets/styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © 382983280@qq.com 2024","modify_label":"更新时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"chapter-fold":{},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"livereload":{},"splitter":{},"google-tongji-with-multiple-channel":{"multipleChannelConfig":{},"url":"https://www.googletagmanager.com/gtag/js","token":"G-YE9M3Z1JB4"},"search-pro":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"auto-scroll-table":{},"code":{"copyButtons":true},"hide-element":{"elements":[".gitbook-link"]},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"assets/favicon.ico","bookmark":"assets/favicon.ico","appleTouch":"assets/favicon.ico","appleTouchMore":{"120x120":"assets/favicon.ico","180x180":"assets/favicon.ico"}},"multilingual-index":{"enableSuper":true},"back-to-top-button":{},"pageview-count":{},"sharing":{"all":["facebook","google","linkedin","twitter","weibo","qq"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"theme":"default","author":"Bingdong Liu","pdf":{"pageBreaksBefore":"/","headerTemplate":null,"paperSize":"a4","margin":{"right":62,"left":62,"top":56,"bottom":56},"fontSize":12,"fontFamily":"Arial","footerTemplate":null,"chapterMark":"pagebreak","pageNumbers":true},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"isbn":"","variables":{},"title":"Bingdong Liu","language":"ch","links":{"sharing":{"all":true,"facebook":true,"google":true,"twitter":true,"weibo":true},"sidebar":{"EasyMultiProfiler":"https://github.com/liubingdong/EasyMultiProfiler"}},"gitbook":"*","description":"EasyMultiProfiler.","extension":null},"file":{"path":"MD/10.6 Microbiome example.md","mtime":"2025-10-27T11:47:03.497Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2025-10-27T16:01:37.235Z"},"basePath":"..","book":{"language":"ch"}});
         });
     </script>
 </div>
