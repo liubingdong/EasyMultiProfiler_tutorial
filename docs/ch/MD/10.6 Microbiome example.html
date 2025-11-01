@@ -1272,16 +1272,50 @@ MAE |&gt;
 MAE |&gt;
   EMP_rowdata_extract() # &#x67E5;&#x770B;&#x7269;&#x79CD;&#x6CE8;&#x91CA;
 </code></pre>
-<p><strong>&#x67E5;&#x770B;&#x5F53;&#x524D;&#x5FAE;&#x751F;&#x7269;&#x7EC4;&#x5B66;&#x95E8;&#x7EA7;&#x522B;&#x6570;&#x636E;</strong></p>
+<p><strong>&#x67E5;&#x770B;&#x5F53;&#x524D;&#x5FAE;&#x751F;&#x7269;&#x7EC4;&#x5B66;&#x79CD;&#x7EA7;&#x522B;&#x6570;&#x636E;</strong></p>
 <pre class="language-"><code class="lang-R">MAE |&gt;
   EMP_assay_extract() |&gt;
-  EMP_collapse(collapse_by = &apos;row&apos;,estimate_group = &apos;Phylum&apos;)
+  EMP_collapse(collapse_by = &apos;row&apos;,estimate_group = &apos;Species&apos;)
 </code></pre>
 <p><strong>&#x67E5;&#x770B;&#x5F53;&#x524D;&#x5FAE;&#x751F;&#x7269;&#x7EC4;&#x5B66;&#x7EB2;&#x7EA7;&#x522B;&#x6570;&#x636E;</strong></p>
 <pre class="language-"><code class="lang-R">MAE |&gt;
   EMP_assay_extract() |&gt;
   EMP_collapse(collapse_by = &apos;row&apos;,estimate_group = &apos;Class&apos;)
 </code></pre>
+<p><strong>&#x67E5;&#x770B;&#x5F53;&#x524D;&#x5FAE;&#x751F;&#x7269;&#x7EC4;&#x5B66;&#x95E8;&#x7EA7;&#x522B;&#x6570;&#x636E;</strong></p>
+<pre class="language-"><code class="lang-R">MAE |&gt;
+  EMP_assay_extract() |&gt;
+  EMP_collapse(collapse_by = &apos;row&apos;,estimate_group = &apos;Phylum&apos;) |&gt;
+  EMP_structure_plot(top_num = 10)
+</code></pre>
+<div style="text-align: center;">     
+  <img src="../tutorial_figs/single_micro_structure1.jpg" style="zoom: 40%;"> 
+</div>
+
+<p><strong>&#x67E5;&#x770B;&#x5F53;&#x524D;&#x5FAE;&#x751F;&#x7269;&#x7EC4;&#x5B66;&#x95E8;&#x7EA7;&#x522B;&#x6570;&#x636E;&#x5E76;&#x6309;&#x7167;&#x7EC4;&#x8FDB;&#x884C;&#x6298;&#x53E0;</strong></p>
+<pre class="language-"><code class="lang-R">MAE |&gt;
+  EMP_assay_extract() |&gt;
+  EMP_collapse(collapse_by = &apos;row&apos;,estimate_group = &apos;Phylum&apos;) |&gt;
+  EMP_collapse(collapse_by = &apos;col&apos;,estimate_group = &apos;Group&apos;) |&gt;
+  EMP_structure_plot(top_num = 10)
+</code></pre>
+<div style="text-align: center;">     
+  <img src="../tutorial_figs/single_micro_structure2.jpg" style="zoom: 40%;"> 
+</div>
+
+<p><strong>&#x67E5;&#x770B;Bacilli&#x7EB2;&#x7EA7;&#x522B;&#x4E0B;&#x7684;&#x83CC;&#x5C5E;&#xFF0C;&#x5E76;&#x6309;&#x7167;&#x533A;&#x57DF;&#x5206;&#x7EC4;&#x8FDB;&#x884C;&#x7EDF;&#x8BA1;&#x5B66;&#x68C0;&#x9A8C;</strong></p>
+<pre class="language-"><code class="lang-R">MAE |&gt;
+  EMP_assay_extract() |&gt;
+  EMP_collapse(collapse_by = &apos;row&apos;,estimate_group = &apos;Genus&apos;) |&gt;
+  EMP_filter(feature_condition = Class %in% &apos;Bacilli&apos;) |&gt;
+  EMP_boxplot(estimate_group=&apos;Region&apos;,
+              method=&apos;t.test&apos;,
+              ncol=5)
+</code></pre>
+<div style="text-align: center;">     
+  <img src="../tutorial_figs/single_micro_sex.jpg" style="zoom: 40%;"> 
+</div>
+
 <h3 id="1063-&#x5FAE;&#x751F;&#x7269;&#x6570;&#x636E;&#x62BD;&#x5E73;-&#x975E;&#x5FC5;&#x987B;">10.6.3 &#x5FAE;&#x751F;&#x7269;&#x6570;&#x636E;&#x62BD;&#x5E73; (&#x975E;&#x5FC5;&#x987B;)</h3>
 <p><strong>&#x6309;&#x7167;&#x5F53;&#x524D;&#x6837;&#x672C;&#x4E2D;&#x6700;&#x5C0F;&#x8BFB;&#x6570;&#x8FDB;&#x884C;&#x62BD;&#x5E73;</strong></p>
 <pre class="language-"><code class="lang-R">MAE |&gt;
@@ -1526,7 +1560,7 @@ mantel
 </div> 
 
 <footer class="page-footer"><span class="copyright">Copyright &#xA9; 382983280@qq.com 2024 all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">&#x66F4;&#x65B0;&#x65F6;&#x95F4;&#xFF1A;
-2025-10-27 19:47:03
+2025-11-01 22:09:51
 </span></footer>
                                 
                                 </section>
@@ -1570,7 +1604,7 @@ mantel
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"10.6 Microbiome example","level":"1.1.10.6","depth":3,"next":{"title":"10.7 Trans example","level":"1.1.10.7","depth":3,"path":"MD/10.7 Trans example.md","ref":"MD/10.7 Trans example.md","articles":[]},"previous":{"title":"10.5 Installation issues","level":"1.1.10.5","depth":3,"path":"MD/10.5 Installation issues.md","ref":"MD/10.5 Installation issues.md","articles":[]},"dir":"ltr"},"config":{"plugins":["code","pageview-count","tbfed-pagefooter","favicon","-highlight","prism","google-tongji-with-multiple-channel","search-pro","expandable-chapters","hide-element","back-to-top-button","splitter","auto-scroll-table","-lunr","-search","-sharing","sharing-plus","chapter-fold","multilingual-index"],"styles":{"website":"assets/styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © 382983280@qq.com 2024","modify_label":"更新时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"chapter-fold":{},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"livereload":{},"splitter":{},"google-tongji-with-multiple-channel":{"multipleChannelConfig":{},"url":"https://www.googletagmanager.com/gtag/js","token":"G-YE9M3Z1JB4"},"search-pro":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"auto-scroll-table":{},"code":{"copyButtons":true},"hide-element":{"elements":[".gitbook-link"]},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"assets/favicon.ico","bookmark":"assets/favicon.ico","appleTouch":"assets/favicon.ico","appleTouchMore":{"120x120":"assets/favicon.ico","180x180":"assets/favicon.ico"}},"multilingual-index":{"enableSuper":true},"back-to-top-button":{},"pageview-count":{},"sharing":{"all":["facebook","google","linkedin","twitter","weibo","qq"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"theme":"default","author":"Bingdong Liu","pdf":{"pageBreaksBefore":"/","headerTemplate":null,"paperSize":"a4","margin":{"right":62,"left":62,"top":56,"bottom":56},"fontSize":12,"fontFamily":"Arial","footerTemplate":null,"chapterMark":"pagebreak","pageNumbers":true},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"isbn":"","variables":{},"title":"Bingdong Liu","language":"ch","links":{"sharing":{"all":true,"facebook":true,"google":true,"twitter":true,"weibo":true},"sidebar":{"EasyMultiProfiler":"https://github.com/liubingdong/EasyMultiProfiler"}},"gitbook":"*","description":"EasyMultiProfiler.","extension":null},"file":{"path":"MD/10.6 Microbiome example.md","mtime":"2025-10-27T11:47:03.497Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2025-10-27T16:01:37.235Z"},"basePath":"..","book":{"language":"ch"}});
+            gitbook.page.hasChanged({"page":{"title":"10.6 Microbiome example","level":"1.1.10.6","depth":3,"next":{"title":"10.7 Trans example","level":"1.1.10.7","depth":3,"path":"MD/10.7 Trans example.md","ref":"MD/10.7 Trans example.md","articles":[]},"previous":{"title":"10.5 Installation issues","level":"1.1.10.5","depth":3,"path":"MD/10.5 Installation issues.md","ref":"MD/10.5 Installation issues.md","articles":[]},"dir":"ltr"},"config":{"plugins":["code","pageview-count","tbfed-pagefooter","favicon","-highlight","prism","google-tongji-with-multiple-channel","search-pro","expandable-chapters","hide-element","back-to-top-button","splitter","auto-scroll-table","-lunr","-search","-sharing","sharing-plus","chapter-fold","multilingual-index"],"styles":{"website":"assets/styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © 382983280@qq.com 2024","modify_label":"更新时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"chapter-fold":{},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"livereload":{},"splitter":{},"google-tongji-with-multiple-channel":{"multipleChannelConfig":{},"url":"https://www.googletagmanager.com/gtag/js","token":"G-YE9M3Z1JB4"},"search-pro":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"auto-scroll-table":{},"code":{"copyButtons":true},"hide-element":{"elements":[".gitbook-link"]},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"assets/favicon.ico","bookmark":"assets/favicon.ico","appleTouch":"assets/favicon.ico","appleTouchMore":{"120x120":"assets/favicon.ico","180x180":"assets/favicon.ico"}},"multilingual-index":{"enableSuper":true},"back-to-top-button":{},"pageview-count":{},"sharing":{"all":["facebook","google","linkedin","twitter","weibo","qq"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"theme":"default","author":"Bingdong Liu","pdf":{"pageBreaksBefore":"/","headerTemplate":null,"paperSize":"a4","margin":{"right":62,"left":62,"top":56,"bottom":56},"fontSize":12,"fontFamily":"Arial","footerTemplate":null,"chapterMark":"pagebreak","pageNumbers":true},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"isbn":"","variables":{},"title":"Bingdong Liu","language":"ch","links":{"sharing":{"all":true,"facebook":true,"google":true,"twitter":true,"weibo":true},"sidebar":{"EasyMultiProfiler":"https://github.com/liubingdong/EasyMultiProfiler"}},"gitbook":"*","description":"EasyMultiProfiler.","extension":null},"file":{"path":"MD/10.6 Microbiome example.md","mtime":"2025-11-01T14:09:51.654Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2025-11-01T14:10:12.186Z"},"basePath":"..","book":{"language":"ch"}});
         });
     </script>
 </div>
