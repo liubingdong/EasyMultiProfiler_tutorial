@@ -1252,58 +1252,49 @@
                                 
                                 <h2 id="2-create-multiassayexperiment-object">2. Create MultiAssayExperiment Object</h2>
 <p>This section illustrates how to import data from multi-omics projects into the analysis process.</p>
+<ul>
+<li><a href="#21">If your dataset contains multiple omics data types, start from section 2.1</a></li>
+<li><a href="#22">If your dataset contains only a single omics data type, start from section 2.2</a></li>
+</ul>
 <h3 id="21">2.1 Multi-omics Data</h3>
 
-<p>When the user processes data from multi-omics projects, the data needs to be imported and combined into an <code>MAE</code> object.</p>
-<div style="text-align: center;">     
-  <img src="../tutorial_figs/EMP_structure1.jpg" style="zoom: 35%;"> 
-</div>
-
-<h4 id="211-create-a-relationship-table-of-sample-id-and-subject-id">2.1.1 Create a relationship table of sample ID and subject ID</h4>
-<p>In the study, each subject has a unique subject ID (e.g., P1, P2, P3...), and each subject may collect a variety of biological samples and measure corresponding data, including species annotation (taxonomy) for 16s rRNA gene sequencing, KO annotation (geno_ko) for microbial functional genes, eczymatic annotation (geno_ec) for microbial functional genes, etc. When analyzing data from one or more projects, in most cases the subject ID and sample ID are the same (e.g., subject ID P1, project name taxonomy,  sample ID P1). But sometimes we also face the following situations:</p>
+<p>When working with multiple omics datasets, users need to import and combine their data into a MultiAssayExperiment object. This process involves three main components: <strong>&#x2460; Sample phenotypic data</strong>; <strong>&#x2461; Omics data in SummarizedExperiment format</strong>; and <strong>&#x2462; Sample relationship table</strong>. The following tutorial provides step-by-step examples for constructing each component. Example datasets are also provided for learning purposes.</p>
+<p><strong>Example dataset</strong>: <a href="https://github.com/liubingdong/EasyMultiProfiler/blob/main/tutorial_related/EMP_demo_data.7z" target="_blank">1. GitHub Download</a> | <a href="https://pan.baidu.com/s/1-U5B8IWXPnnGjJuXMd1Hew?pwd=4ybg" target="_blank">2. Baidu Netdisk Download</a></p>
+<p><strong>Navigation Guide</strong></p>
 <ul>
-<li><strong>Only single-omic project</strong>: the subject ID and the sample ID are inconsistent (e.g., subject ID P1, project name taxonomy, sample ID tax_1);</li>
-<li><strong>Multi-omics projects</strong>: Within the same subject, sample ID of different projects are inconsistent (e.g., subject ID P1; project name taxonomy, sample ID tax_1; project name geno_ko, sample ID genomics_1).</li>
+<li><a href="#211">&#x2460;Sample Phenotypic Data</a></li>
+<li><a href="#212">&#x2461;Reading Omics Data</a><ul>
+<li><a href="#212">Microbiome Data</a><ul>
+<li><a href="#2121">ASV/OTU Table</a></li>
+<li><a href="#2122">Taxonomic Hierarchy Table</a></li>
+<li><a href="#2123">MetaPhlAn/HUMAnN Annotation Table</a></li>
+<li><a href="#2124">BIOM Format File</a></li>
+<li><a href="#2125">BIOM Converted Table</a></li>
+<li><a href="#2126">QIIME2 QZV File</a></li>
 </ul>
-<p>Therefore, in order to effectively manage and analyse this data, users need to create a relationship table (usually named <code>DFMAP</code>, users can also customize) to match the subject ID to the sample ID. Based on the relationship table, users are able to easily import all the data into the <code>MultiAssayExperiment</code> object. During subsequent analysis, the <code>EasyMultiProfiler</code> package automatically replaces the sample ID the subject ID according to the relationship table.</p>
-<p>The relationship table-based analysis process has the following benefits:</p>
-<ul>
-<li><strong>Data Integration and Consistency</strong>: Relationship table ensure that the sample information in the datasets of different projects is properly mapped and integrated, thus ensuring data consistency.</li>
-<li><strong>Automated processing</strong>: Data can be managed and processed automatically without manual modifications, so you don&apos;t have to worry about inconsistent naming.</li>
-<li><strong>Streamlined analysis workflow</strong>: Consolidating data and automatically replacing sample ID with subject ID makes the analysis process smoother and clearer, reducing errors that can result from manual processing.</li>
+</li>
+<li><a href="#213">KO/EC Functional Annotation Data</a><ul>
+<li><a href="#2131">Standard Table Format</a></li>
+<li><a href="#2132">HUMAnN Format Data</a></li>
 </ul>
-<div style="background-color: #ffffcc; border: 1px solid #ffcc00; padding: 10px;">
-Note&#xFF1A;<br>Do not confuse &quot;Project Name&quot;, &quot;Subject ID&quot;, and &quot;Sample ID&quot;.
-</div>
+</li>
+<li><a href="#214">Other Omics Data (Transcriptomics, Metabolomics, Proteomics)</a><ul>
+<li><a href="#2141">Standard Expression Matrix (Common in Transcriptomics)</a></li>
+<li><a href="#2142">Annotated Feature Matrix (Common in Metabolomics/Proteomics)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#215">&#x2462;Creating Sample Relationship Table</a></li>
+<li><a href="#216">Integrating Components &#x2460;&#x2461;&#x2462; to Construct MultiAssayExperiment Object</a></li>
+</ul>
+<h3 id="211">2.1.1 Sample phenotypic data</h3>
 
-<div style="text-align: center;">     
-  <img src="../tutorial_figs/EMP_dfmap_demo.jpg" style="zoom: 50%;"> 
-</div>
-
-<p>&#x1F3F7;&#xFE0F;<strong>Example:</strong> Create a relationship table of subject ID and sample ID.</p>
-<div style="text-align: center;">     
-  <img src="../tutorial_figs/dfmap.jpg" style="zoom: 50%;"> 
-</div>
-
-<p>This table needs to be saved as a file and read into R. Users can also manually create data frame directly within R.</p>
-<pre class="language-"><code class="lang-R">dfmap &lt;- read.table(&apos;dfmap.txt&apos;,header=TRUE,sep=&apos;\t&apos;)
-</code></pre>
-<div style="background-color: #ffffcc; border: 1px solid #ffcc00; padding: 10px;">
-Note&#xFF1A;<br>
-&#x2460;The relationship table must consist of the following three columns: assay (project name), primary (subject ID), colname (sample ID).<br>
-&#x2461;The sample ID (e.g., tax_1, genomics_1, etc. in this tutorial) is generated by the upstream annotation.<br>
-&#x2462;The sample ID is allowed to be same as the subject ID (e.g., subject ID P1, project name taxonomy, sample ID P1).<br>
-&#x2463;The sample ID (or the subject ID corresponding to the sample ID) of each project must be a subset (or identical) of the subject ID of the sample-related data. If the sample ID in the project do not correspond to the subject ID in the sample-related data, these sample ID should be excluded from these projects.<br>
-&#x2464;The sample ID of each omics item must correspond to the colname of the relationship table one by one.<br>
-&#x2465;For the numbering scheme of project data before and after intervention in the same group of subjects, please refer to section 10.3.
-</div>
-
-<h4 id="212-precautions-for-reading-sample-related-data">2.1.2 Precautions for reading sample-related data</h4>
 <p>Sample-related data refers to the basic information of the subject, usually including: the subject&apos;s general demographic data (gender, age, residence, etc.), anthropometric data (height, weight, waist circumference, etc.), psychological scale score results (anxiety scale, depression scale, sleep scale, etc.), test results (blood routine, liver function, inflammatory factors, etc.).</p>
 <div style="background-color: #ffffcc; border: 1px solid #ffcc00; padding: 10px;">
 Note:<br>
 &#x2460; If there are missing values in the sample-related data, please leave them blank directly without using placeholders like NA, -, missing, etc.<br>
-&#x2461; Please set the first column of the sample-related data as the Sample ID, and set it as the row names when reading (important).<br>
+&#x2461; <span style="color: red; font-weight: bold;">Please set the first column of the sample-related data as the Sample ID, and set it as the row names when reading (row.names = 1).</span><br>
 &#x2462; Sample ID must be unique and cannot be duplicated.<br>
 &#x2463; It is recommended to set the values of categorical variables in the data as strings rather than pure numbers to avoid unnecessary issues.<br>
 &#x2464; For the numbering scheme of project data before and after intervention for the same group of subjects, please refer to Chapter 10.3.<br>
@@ -1314,9 +1305,11 @@ Note:<br>
 meta_data &lt;- read.table(&apos;col.txt&apos;,header = T,row.names = 1)
 </code></pre>
 <p><img src="../tutorial_figs/meta_data.jpg" alt=""></p>
-<h4 id="213-read-microbiome-data">2.1.3 Read microbiome data</h4>
+<h3 id="212">2.1.2 Read microbiome data</h3>
+
 <p>Microbiome data refers to the result files containing the abundance information of microorganisms in each sample, which are generated by various upstream microbial annotation tools. Common result files include the following five types: ASV/OTU tables, abundance tables (kingdom, phylum, class, order, family, genus and species-level), generic-level abundance tables generated by MetaPhlan and Humann, Biom files, and QZV files specific to QIIME2. The module <code>EMP_taxonomy_import</code> supports the input of result files in all of the above formats and converts them into <code>SummariseExperiment</code> objects.</p>
-<h5 id="2131-asvotu-forms">2.1.3.1 ASV/OTU forms</h5>
+<h3 id="2121">2.1.2.1  ASV/OTU forms</h3>
+
 <p>The <code>#</code> characters on the first and second lines of this file do not need to be modified. The data file must contains species annotation information.</p>
 <div style="background-color: #ffffcc; border: 1px solid #ffcc00; padding: 10px;">
 Note:<br>
@@ -1328,7 +1321,8 @@ Note:<br>
 <p><img src="../tutorial_figs/OTU.jpg" alt=""></p>
 <pre class="language-"><code class="lang-R">tax_data &lt;- EMP_taxonomy_import(&apos;tax.txt&apos;,duplicate_feature=TRUE)
 </code></pre>
-<h5 id="2132-abundance-table-kingdom-phylum-family-genus-and-species-level">2.1.3.2 Abundance table (Kingdom, Phylum, family, genus, and species-level)</h5>
+<h3 id="2122">2.1.2.2 Abundance table (Kingdom, Phylum, family, genus, and species-level</h3>
+
 <p>Since high-taxonomic data can be converted to low-taxonomic data (e.g., Species data can be converted to Phylum data), it is recommended that users directly import data at the highest taxonomy level.</p>
 <div style="background-color: #ffffcc; border: 1px solid #ffcc00; padding: 10px;">
 Note:<br>
@@ -1338,7 +1332,8 @@ Module <code>EMP_taxonomy_import</code> has a parameter <code>assay_name</code> 
 <p><img src="../tutorial_figs/level-7.jpg" alt=""></p>
 <pre class="language-"><code class="lang-R">tax_data &lt;- EMP_taxonomy_import(&apos;tax.txt&apos;)
 </code></pre>
-<h5 id="2133-classification-annotation-table-for-metaphlan-and-humann">2.1.3.3 Classification annotation table for MetaPhlan and Humann</h5>
+<h3 id="2123">2.1.2.3 Classification annotation table for MetaPhlan and Humann</h3>
+
 <p>The species annotations of this annotation table have a hierarchical structure and usually contain all the result information at each level of the genus and species of the phylum family. The module <code>EMP_taxonomy_import</code> can automatically identify annotation information at the highest classification level and import the complete classification data.</p>
 <div style="background-color: #ffffcc; border: 1px solid #ffcc00; padding: 10px;">
 Note:<br>
@@ -1348,7 +1343,8 @@ When the input data is in this format, users need to specify the parameter <code
 <p><img src="../tutorial_figs/humann_tax.jpg" alt=""></p>
 <pre class="language-"><code class="lang-R">tax_data &lt;- EMP_taxonomy_import(&apos;tax.txt&apos;,humann_format=TRUE)
 </code></pre>
-<h5 id="2134-biom-format-files">2.1.3.4 Biom format files</h5>
+<h3 id="2124">2.1.2.4 Biom format files</h3>
+
 <p>The biom format is a common species annotation result file in the QIIME1 process, and some users will also save the species annotation file of the QIIME2 process in biom format for data storage. The module <code>EMP_taxonomy_import</code> can directly read the biom format file and import the data information.</p>
 <div style="background-color: #ffffcc; border: 1px solid #ffcc00; padding: 10px;">
 Note:<br>
@@ -1358,7 +1354,8 @@ When the input data is in this format, users need to specify the parameter <code
 <pre class="language-"><code class="lang-R">tax_data &lt;- EMP_taxonomy_import(&apos;tax.biom&apos;,
                                 file_format=&apos;biom&apos;,duplicate_feature=TRUE)
 </code></pre>
-<h5 id="2135-tabular-files-converted-from-biom-format-files">2.1.3.5 Tabular files converted from Biom format files</h5>
+<h3 id="2125">2.1.2.5 Tabular files converted from Biom format files</h3>
+
 <p>Biom files can be converted into tabular files using <a href="https://biom-format.org/documentation/biom_conversion.html" target="_blank">the Biom Convert method</a>, or imported directly.</p>
 <div style="background-color: #ffffcc; border: 1px solid #ffcc00; padding: 10px;">
 &#x6CE8;&#x610F;&#xFF1A;<br>
@@ -1368,7 +1365,8 @@ When the input data is in this format, users do not need to modify the header an
 <pre class="language-"><code class="lang-R">tax_data &lt;- EMP_taxonomy_import(&apos;tax.txt&apos;,duplicate_feature=TRUE)
 </code></pre>
 <p><img src="../tutorial_figs/out_table.jpg" style="zoom:67%;"></p>
-<h5 id="2136-qzv-format-file">2.1.3.6 QZV format file</h5>
+<h3 id="2126">2.1.2.6 QZV format file</h3>
+
 <p>In the Qiime2 process, the qiime taxa barplot generates a QZV file of microbial annotation results. The module <code>EMP_taxonomy_import</code> can directly read the QZV format file and import the data information.</p>
 <div style="background-color: #ffffcc; border: 1px solid #ffcc00; padding: 10px;">
 Note:<br>
@@ -1378,8 +1376,16 @@ When the input data is in this format, users need to specify the parameter <code
 <pre class="language-"><code class="lang-R">tax_data &lt;- EMP_taxonomy_import(&apos;tax.qzv&apos;,
                                 file_format=&apos;qzv&apos;,duplicate_feature=TRUE)
 </code></pre>
-<h4 id="214-read-koec-omics-data">2.1.4 Read KO/EC omics data</h4>
-<h5 id="2141-ordinary-tabular-form">2.1.4.1 Ordinary tabular form</h5>
+<h3 id="213">2.1.3 KO/EC omics data</h3>
+
+<p>KO/EC omics data are derived from functional annotations based on the KEGG database and primarily consist of two functional identifier systems: KO (KEGG Orthology) and EC (Enzyme Commission). These data are typically generated from metagenomic sequencing results analyzed by tools such as HUMAnN or PICRUSt2, and are used to characterize the potential metabolic functions and pathway activities of microbial communities. During import, the tool supports reading standard tabular files in which rows represent KO/EC functional features, columns represent samples, and cell values generally indicate the abundance or count of each function.</p>
+<p>Primary Annotation Types:</p>
+<ul>
+<li>KO (KEGG Orthology): KEGG Orthology identifiers are used to associate gene functions with KEGG metabolic pathways.</li>
+<li>EC (Enzyme Commission): Enzyme Commission numbers provide a systematic classification and coding scheme for enzymes.</li>
+</ul>
+<h3 id="2131">2.1.3.1 Standard tabular form</h3>
+
 <p>KO/EC omics project data in common format refers to metagenomic or metatranscriptomic annotated result files annotated with KO or EC ID. The module <code>EMP_function_import</code> can directly read the annotation table and query the corresponding annotation information integrated by the KEGG database.</p>
 <div style="background-color: #ffffcc; border: 1px solid #ffcc00; padding: 10px;">
 Note:<br>
@@ -1395,7 +1401,8 @@ Note:<br>
 <pre class="language-"><code class="lang-R">ko_data &lt;- EMP_function_import(&apos;ko.txt&apos;,type = &apos;ko&apos;)
 ec_data &lt;- EMP_function_import(&apos;ec.txt&apos;,type = &apos;ec&apos;)
 </code></pre>
-<h5 id="2141-humann-format">2.1.4.1 Humann format</h5>
+<h3 id="2132">2.1.3.2 Humann format</h3>
+
 <p>KO/EC omics project data in Humann format refers to the hierarchical KO/EC annotation tables generated by the Humann tool. The module <code>EMP_function_import</code> ignores the information of UNGROUPED, directly reads the comment table, and queries the KEGG database to integrate the corresponding comment information.</p>
 <div style="background-color: #ffffcc; border: 1px solid #ffcc00; padding: 10px;">
 Note&#xFF1A;<br>
@@ -1405,14 +1412,17 @@ Note&#xFF1A;<br>
 <p><img src="../tutorial_figs/humann_ko.jpg" alt=""></p>
 <pre class="language-"><code class="lang-R">ko_data &lt;- EMP_function_import(&apos;ko.txt&apos;,type = &apos;ko&apos;,humann_format = TRUE)
 </code></pre>
-<h4 id="215-read-standard-table-information">2.1.5 Read standard table information</h4>
+<h3 id="214">2.1.4 Standard table information</h3>
+
 <p>Standard tabular data usually refers to data such as transcriptome or metabolome, which has no special format and can be imported directly.</p>
-<h5 id="2151-data-import-without-feature-annotation-information">2.1.5.1 Data import without feature annotation information</h5>
+<h3 id="2141">2.1.4.1 Table without feature annotation information</h3>
+
 <p>This data is commonly used in transcriptome or genomic data, with &quot;rows&quot; as features and &quot;columns&quot; as samples.</p>
 <p><img src="../tutorial_figs/input_tran.jpg" style="zoom:67%;"></p>
 <pre class="language-"><code class="lang-R">tran_data &lt;- EMP_normal_import(&apos;tran.txt&apos;)
 </code></pre>
-<h5 id="2152-data-import-containing-feature-annotation-information">2.1.5.2 Data import containing feature annotation information</h5>
+<h3 id="2142">2.1.4.2 Table with feature annotation information</h3>
+
 <p>This data is commonly used in metabolomics data, with &quot;rows&quot; as features and &quot;columns&quot; as sampleID and feature-related annotations. When importing this kind of data, users need to specify a sampleID column.</p>
 <div style="background-color: #ffffcc; border: 1px solid #ffcc00; padding: 10px;">
 Note:<br>
@@ -1432,15 +1442,48 @@ metbol_data &lt;- EMP_normal_import(&apos;metabol.txt&apos;,sampleID = sample_ID
 metbol_data &lt;- EMP_normal_import(&apos;metabol.txt&apos;,sampleID = sample_ID,
                                  dfmap = dfmap,assay = &apos;untarget_metabol&apos;)
 </code></pre>
-<h4 id="216--integrate-all-data-into-the-multiassayexperiment-object">2.1.6  Integrate all data into the MultiAssayExperiment object</h4>
+<h3 id="215">2.1.5 Creating a Sample Mapping Table Linking Assay Samples to Subject IDs</h3>
+
+<p>After importing the data, two key components have been loaded: &#x2460; Omics data stored in SummarizedExperiment format, and &#x2461; Sample phenotypic data. The next step is to construct the &#x2462; Sample mapping table.</p>
+<p>The primary purpose of this table is to resolve the common issue of inconsistent sample naming across multiple omics datasets. In many studies, different omics platforms or experimental batches may assign different sample identifiers to the same subject, preventing direct matching between expression matrices and phenotypic data. The sample mapping table is designed to establish a clear correspondence between them.</p>
+<p>For example, in a human study involving multiple omics assays:</p>
+<ul>
+<li><p>Each subject has a unique identifier (e.g., P1, P2, P3&#x2026;);</p>
+</li>
+<li><p>The same subject may provide multiple biological samples for different omics assays, such as:</p>
+<p>&#x25CB; 16S rRNA taxonomic annotation (taxonomy), with sample IDs such as tax_1, tax_2, tax_3,&#x2026;;</p>
+<p>&#x25CB; Microbial functional gene KO annotation (geno_ko), with sample IDs such as genomics_1, genomics_2, genomics_3,&#x2026;</p>
+</li>
+</ul>
+<p>In this case, the sample mapping table must link the subject ID P1 in the phenotypic data to the corresponding assay-specific sample IDs&#x2014;tax_1 and genomics_1.</p>
+<p>Once this table is established, users can seamlessly integrate all data into a MultiAssayExperiment object. In subsequent analyses, the EasyMultiProfiler package will automatically use this mapping to replace all assay-specific sample IDs with the unified subject identifiers, ensuring data consistency and analytical reproducibility.</p>
+<p>A mapping-based workflow offers the following advantages:</p>
+<ul>
+<li><p>Data Integration and Consistency: Ensures accurate alignment and merging of sample information across different omics datasets.</p>
+</li>
+<li><p>Automated Processing: Enables fully automated data handling without manual renaming, eliminating inconsistencies caused by naming variations.</p>
+</li>
+</ul>
+<p>Streamlined Analysis: Simplifies the analytical workflow by automatically harmonizing sample identifiers, reducing manual errors, and processing time.</p>
+<div style="background-color: #ffffcc; border: 1px solid #ffcc00; padding: 10px; border-radius: 4px;"> <strong>Note:</strong><br> If the sample names in the omics expression matrix already match those in the phenotypic data, you can simply create a mapping table using identical names.<br> </div><div style="text-align: center;"> <img src="../tutorial_figs/EMP_dfmap_demo.jpg" style="width: 50%; max-width: 600px;"> </div>
+
+<p>&#x1F3F7; <strong>Example: Creating a mapping table linking subject IDs and assay-specific sample identifiers.</strong></p>
+<div style="background-color: #ffffcc; border: 1px solid #ffcc00; padding: 10px; border-radius: 4px;"> <strong>Notes:</strong><br> &#x2460; The mapping table must contain the following three columns: <code>assay</code> (name of the omics assay), <code>primary</code> (subject identifier), and <code>colname</code> (sample identifier in the omics assay).<br> &#x2461; <code>assay</code> refers to the user-defined name of the omics dataset. <code>primary</code> corresponds to the sample name in the phenotypic data. <code>colname</code> is the sample name as it appears in the expression matrix of the corresponding assay.<br> &#x2462; Each sample identifier in an omics assay must have a one-to-one match in the <code>colname</code> column of the mapping table.<br> &#x2463; For naming schemes in longitudinal or pre-/post-intervention studies, please refer to Section 10.3. </div><div style="text-align: center;"> <img src="../tutorial_figs/dfmap.jpg" style="width: 40%; max-width: 600px;"> </div>
+
+<p>This table must be saved as a file and read into R. Alternatively, users can create the data frame directly in R.</p>
+<pre class="language-"><code class="lang-R">dfmap &lt;- read.table(&apos;dfmap.txt&apos;,header=TRUE,sep=&apos;\t&apos;)
+</code></pre>
+<h3 id="216">2.1.6   Integrate all data into the MultiAssayExperiment object</h3>
+
 <div style="background-color: #ffffcc; border: 1px solid #ffcc00; padding: 10px;">
 Note:<br>
-&#x2460; In this example, <code>dfmap</code> refers to the relationship table in section 2.1.1.<br>
+&#x2460; In this example, <code>dfmap</code> refers to the relationship table in section 2.1.5.<br>
 &#x2461; The <code>assay</code> column in the relationship table must be converted to a factor.<br>
 &#x2462; Names in <code>objlist</code> must match the project names in the <code>assay</code> column of the relationship table.<br>
 &#x2463; If assembly fails, users can check the data using the module <code>MultiAssayExperiment::prepMultiAssay(objlist, meta_data, dfmap)</code>.<br>
 &#x2464; For more detailed information about the <code>MultiAssayExperiment</code> package, refe to <a href="https://bioconductor.org/packages/release/bioc/vignettes/MultiAssayExperiment/inst/doc/MultiAssayExperiment.html" target="_blank">this tutorial</a>.
 </div>
+
 
 <pre class="language-"><code class="lang-R">#### The assay column in the relationship table must be converted to a factor
 dfmap$assay &lt;- as.factor(dfmap$assay)
@@ -1462,13 +1505,16 @@ MAE &lt;- MultiAssayExperiment::MultiAssayExperiment(experiments=objlist,
 <div style="background-color: #ffffcc; border: 1px solid #ffcc00; padding: 10px;">
 Note:<br>
 &#x2460; The parameter <code>type</code> includes four options: <code>tax</code>, <code>ko</code>, <code>ec</code>, and <code>normal</code>. Users should determine which to use based on the context.<br>
-&#x2461; For single-omic project where no relationship table is involved, the sampleID in the abundance matrix must match those in the associated sample data.
+&#x2461;<span style="color: red; font-weight: bold;"> For single-omic project where no relationship table is involved, the sampleID in the abundance matrix must match those in the Sample phenotypic data.</span>
 </div>
 
-<pre class="language-"><code class="lang-R">## row.names=1
-meta_data &lt;- read.table(&apos;coldata.txt&apos;,header = T,row.names = 1)
-MAE &lt;- EMP_easy_import(&apos;tran.txt&apos;,coldata = meta_data,type = &apos;normal&apos;)
-</code></pre>
+<div>
+For more quick-start single-omics analyses, see:<br>
+<a href="10.6%20Microbiome%20example.html" ，target="_blank">10.6 Microbiome Analysis</a><br>
+<a href="10.7%20Trans%20example.html" ，target="_blank">10.7 Transcriptomics Analysis</a><br>
+<a href="10.8%20Metabo_example.html" ，target="_blank">10.8 Metabolomics Analysis</a>
+</div>
+
 <h3 id="23">2.3 MultiAssayExperiment object storage and reading</h3>
 
 <p>Once the <code>MAE</code> object has been created, it can be stored locally for direct reading during the next analysis without having to repeat the creation step.</p>
@@ -1505,7 +1551,6 @@ metbol_data &lt;- EMP_normal_import(&apos;metabol.txt&apos;,dfmap = dfmap,assay 
 
 geno_data &lt;- EMP_normal_import(&apos;tran.txt&apos;,dfmap = dfmap,assay  = &apos;host_gene&apos;)
 
-
 ## Combine into list
 objlist &lt;- list(&quot;taxonomy&quot; = tax_data,
                 &quot;geno_ko&quot; = ko_data,
@@ -1524,7 +1569,7 @@ saveRDS(object = MAE,file = &apos;demo_data.rds&apos;)
 MAE &lt;- readRDS(&apos;demo_data.rds&apos;)
 </code></pre>
 <footer class="page-footer"><span class="copyright">Copyright &#xA9; 382983280@qq.com 2024 all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">&#x66F4;&#x65B0;&#x65F6;&#x95F4;&#xFF1A;
-2025-10-26 00:21:23
+2025-11-03 03:26:35
 </span></footer>
                                 
                                 </section>
@@ -1568,7 +1613,7 @@ MAE &lt;- readRDS(&apos;demo_data.rds&apos;)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Chapter 2 Import data","level":"1.1.2","depth":2,"next":{"title":"2.1 Multi-omics data","level":"1.1.2.1","depth":3,"anchor":"#21","path":"MD/2 Create MAE.md","ref":"MD/2 Create MAE.md#21","articles":[]},"previous":{"title":"1.3 basic information","level":"1.1.1.3","depth":3,"anchor":"#13","path":"MD/1 EasyMultiProfiler introduction.md","ref":"MD/1 EasyMultiProfiler introduction.md#13","articles":[]},"dir":"ltr"},"config":{"plugins":["code","pageview-count","tbfed-pagefooter","favicon","-highlight","prism","google-tongji-with-multiple-channel","search-pro","expandable-chapters","hide-element","back-to-top-button","splitter","auto-scroll-table","-lunr","-search","-sharing","sharing-plus","chapter-fold","multilingual-index"],"styles":{"website":"assets/styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © 382983280@qq.com 2024","modify_label":"更新时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"chapter-fold":{},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"livereload":{},"splitter":{},"google-tongji-with-multiple-channel":{"multipleChannelConfig":{},"url":"https://www.googletagmanager.com/gtag/js","token":"G-YE9M3Z1JB4"},"search-pro":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"auto-scroll-table":{},"code":{"copyButtons":true},"hide-element":{"elements":[".gitbook-link"]},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"assets/favicon.ico","bookmark":"assets/favicon.ico","appleTouch":"assets/favicon.ico","appleTouchMore":{"120x120":"assets/favicon.ico","180x180":"assets/favicon.ico"}},"multilingual-index":{"enableSuper":true},"back-to-top-button":{},"pageview-count":{},"sharing":{"all":["facebook","google","linkedin","twitter","weibo","qq"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"theme":"default","author":"Bingdong Liu","pdf":{"pageBreaksBefore":"/","headerTemplate":null,"paperSize":"a4","margin":{"right":62,"left":62,"top":56,"bottom":56},"fontSize":12,"fontFamily":"Arial","footerTemplate":null,"chapterMark":"pagebreak","pageNumbers":true},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"isbn":"","variables":{},"title":"Bingdong Liu","language":"en","links":{"sharing":{"all":true,"facebook":true,"google":true,"twitter":true,"weibo":true},"sidebar":{"EasyMultiProfiler":"https://github.com/liubingdong/EasyMultiProfiler"}},"gitbook":"*","description":"EasyMultiProfiler.","extension":null},"file":{"path":"MD/2 Create MAE.md","mtime":"2025-10-25T16:21:23.725Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2025-11-01T14:10:12.186Z"},"basePath":"..","book":{"language":"en"}});
+            gitbook.page.hasChanged({"page":{"title":"Chapter 2 Import data","level":"1.1.2","depth":2,"next":{"title":"2.1 Multi-omics data","level":"1.1.2.1","depth":3,"anchor":"#21","path":"MD/2 Create MAE.md","ref":"MD/2 Create MAE.md#21","articles":[]},"previous":{"title":"1.3 basic information","level":"1.1.1.3","depth":3,"anchor":"#13","path":"MD/1 EasyMultiProfiler introduction.md","ref":"MD/1 EasyMultiProfiler introduction.md#13","articles":[]},"dir":"ltr"},"config":{"plugins":["code","pageview-count","tbfed-pagefooter","favicon","-highlight","prism","google-tongji-with-multiple-channel","search-pro","expandable-chapters","hide-element","back-to-top-button","splitter","auto-scroll-table","-lunr","-search","-sharing","sharing-plus","chapter-fold","multilingual-index"],"styles":{"website":"assets/styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © 382983280@qq.com 2024","modify_label":"更新时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"chapter-fold":{},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"livereload":{},"splitter":{},"google-tongji-with-multiple-channel":{"multipleChannelConfig":{},"url":"https://www.googletagmanager.com/gtag/js","token":"G-YE9M3Z1JB4"},"search-pro":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"auto-scroll-table":{},"code":{"copyButtons":true},"hide-element":{"elements":[".gitbook-link"]},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"assets/favicon.ico","bookmark":"assets/favicon.ico","appleTouch":"assets/favicon.ico","appleTouchMore":{"120x120":"assets/favicon.ico","180x180":"assets/favicon.ico"}},"multilingual-index":{"enableSuper":true},"back-to-top-button":{},"pageview-count":{},"sharing":{"all":["facebook","google","linkedin","twitter","weibo","qq"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"theme":"default","author":"Bingdong Liu","pdf":{"pageBreaksBefore":"/","headerTemplate":null,"paperSize":"a4","margin":{"right":62,"left":62,"top":56,"bottom":56},"fontSize":12,"fontFamily":"Arial","footerTemplate":null,"chapterMark":"pagebreak","pageNumbers":true},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"isbn":"","variables":{},"title":"Bingdong Liu","language":"en","links":{"sharing":{"all":true,"facebook":true,"google":true,"twitter":true,"weibo":true},"sidebar":{"EasyMultiProfiler":"https://github.com/liubingdong/EasyMultiProfiler"}},"gitbook":"*","description":"EasyMultiProfiler.","extension":null},"file":{"path":"MD/2 Create MAE.md","mtime":"2025-11-02T19:26:35.496Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2025-11-02T19:26:43.009Z"},"basePath":"..","book":{"language":"en"}});
         });
     </script>
 </div>
