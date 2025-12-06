@@ -83,7 +83,7 @@
     <link rel="next" href="9. More Usefull Tools.html" />
     
     
-    <link rel="prev" href="8.11 EMP_network_plot.html" />
+    <link rel="prev" href="8.12 EMP_barplot.html" />
     
 
     
@@ -1001,6 +1001,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.1.8.12" data-path="8.12 EMP_barplot.html">
+            
+                <a href="8.12 EMP_barplot.html">
+            
+                    
+                    8.12 EMP_bar_plot
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -1052,6 +1065,19 @@
             
                     
                     9.3 top_detect
+            
+                </a>
+            
+
+            
+        </li>
+    
+        <li class="chapter " data-level="1.1.9.4" data-path="9. More Usefull Tools.html">
+            
+                <a href="9. More Usefull Tools.html#94">
+            
+                    
+                    9.4 stat_result
             
                 </a>
             
@@ -1314,8 +1340,62 @@ This parameter requires a number greater than 0. If it is greater than 1, the se
              keep_result = &apos;EMP_diff_analysis&apos;)
 </code></pre>
 <p><img src="../tutorial_figs/top_detect.jpg" alt=""></p>
+<h3 id="94">9.4 Multi-group Differential Analysis with stat_test</h3>
+
+<p>This function enables rapid differential analysis comparisons among multiple groups for tabular data, automatically setting appropriate positional parameters to facilitate visualization with ggplot2.</p>
+<p>&#x1F3F7;&#xFE0F;<strong>Example1&#xFF1A;</strong> Standard comparison</p>
+<pre class="language-"><code class="lang-R">data(ToothGrowth)
+
+# Specifying grouping variable
+stat_test(
+  data = ToothGrowth,
+  estimate_group = &apos;dose&apos;,
+  value = &apos;len&apos;,
+  method = &quot;t.test&quot;
+) 
+# Using formula syntax
+stat_test(
+  data = ToothGrowth,
+  formula = len ~ dose,
+  method = &quot;t.test&quot;
+)
+</code></pre>
+<p>&#x1F3F7;&#xFE0F;<strong>Example2&#xFF1A;</strong> Subgroup comparison</p>
+<pre class="language-"><code class="lang-R">data(ToothGrowth)
+
+# Specifying grouping variables
+stat_test(
+  data = ToothGrowth,
+  value = &apos;len&apos;,
+  estimate_group = &quot;supp&quot;,
+  compare_group = &quot;dose&quot;,
+  method = &quot;t.test&quot;
+)
+# Using formula syntax
+stat_test(
+  data = ToothGrowth,
+  estimate_group = &apos;supp&apos;,
+  formula = len ~ dose,
+  method = &quot;t.test&quot;
+)
+</code></pre>
+<p>&#x1F3F7;&#xFE0F;<strong>Example3&#xFF1A;</strong> Integration with ggplot2 visualizations</p>
+<pre class="language-"><code class="lang-R">stat_result &lt;- stat_test(
+  data = ToothGrowth,
+  formula = len ~ dose,
+  value = &apos;len&apos;,
+  method = &quot;tukey.hsd&quot;,
+) 
+
+# for ggpubr
+if(require(&quot;ggpubr&quot;)){
+  ggboxplot(ToothGrowth, x = &quot;dose&quot;, y = &quot;len&quot;) +
+    stat_pvalue_manual(stat_result, label = &quot;p.signif&quot;, tip.length = 0.01)
+}
+</code></pre>
+<p><img src="../tutorial_figs/stat_result.jpg" style="zoom: 30%;"> </p>
 <footer class="page-footer"><span class="copyright">Copyright &#xA9; 382983280@qq.com 2024 all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">&#x66F4;&#x65B0;&#x65F6;&#x95F4;&#xFF1A;
-2025-02-25 19:35:54
+2025-12-06 16:33:54
 </span></footer>
                                 
                                 </section>
@@ -1343,7 +1423,7 @@ This parameter requires a number greater than 0. If it is greater than 1, the se
 
             
                 
-                <a href="8.11 EMP_network_plot.html" class="navigation navigation-prev " aria-label="Previous page: 8.11 EMP_network_plot">
+                <a href="8.12 EMP_barplot.html" class="navigation navigation-prev " aria-label="Previous page: 8.12 EMP_bar_plot">
                     <i class="fa fa-angle-left"></i>
                 </a>
                 
@@ -1359,7 +1439,7 @@ This parameter requires a number greater than 0. If it is greater than 1, the se
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"Chapter 9 More Useful Tools","level":"1.1.9","depth":2,"next":{"title":"9.1 str_detect_multi","level":"1.1.9.1","depth":3,"anchor":"#91","path":"MD/9. More Usefull Tools.md","ref":"MD/9. More Usefull Tools.md#91","articles":[]},"previous":{"title":"8.11 EMP_network_plot","level":"1.1.8.11","depth":3,"path":"MD/8.11 EMP_network_plot.md","ref":"MD/8.11 EMP_network_plot.md","articles":[]},"dir":"ltr"},"config":{"plugins":["code","pageview-count","tbfed-pagefooter","favicon","-highlight","prism","google-tongji-with-multiple-channel","search-pro","expandable-chapters","hide-element","back-to-top-button","splitter","auto-scroll-table","-lunr","-search","-sharing","sharing-plus","chapter-fold","multilingual-index"],"styles":{"website":"assets/styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © 382983280@qq.com 2024","modify_label":"更新时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"chapter-fold":{},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"livereload":{},"splitter":{},"google-tongji-with-multiple-channel":{"multipleChannelConfig":{},"url":"https://www.googletagmanager.com/gtag/js","token":"G-YE9M3Z1JB4"},"search-pro":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"auto-scroll-table":{},"code":{"copyButtons":true},"hide-element":{"elements":[".gitbook-link"]},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"assets/favicon.ico","bookmark":"assets/favicon.ico","appleTouch":"assets/favicon.ico","appleTouchMore":{"120x120":"assets/favicon.ico","180x180":"assets/favicon.ico"}},"multilingual-index":{"enableSuper":true},"back-to-top-button":{},"pageview-count":{},"sharing":{"all":["facebook","google","linkedin","twitter","weibo","qq"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"theme":"default","author":"Bingdong Liu","pdf":{"pageBreaksBefore":"/","headerTemplate":null,"paperSize":"a4","margin":{"right":62,"left":62,"top":56,"bottom":56},"fontSize":12,"fontFamily":"Arial","footerTemplate":null,"chapterMark":"pagebreak","pageNumbers":true},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"isbn":"","variables":{},"title":"Bingdong Liu","language":"en","links":{"sharing":{"all":true,"facebook":true,"google":true,"twitter":true,"weibo":true},"sidebar":{"EasyMultiProfiler":"https://github.com/liubingdong/EasyMultiProfiler"}},"gitbook":"*","description":"EasyMultiProfiler.","extension":null},"file":{"path":"MD/9. More Usefull Tools.md","mtime":"2025-02-25T11:35:54.267Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2025-11-04T04:09:53.593Z"},"basePath":"..","book":{"language":"en"}});
+            gitbook.page.hasChanged({"page":{"title":"Chapter 9 More Useful Tools","level":"1.1.9","depth":2,"next":{"title":"9.1 str_detect_multi","level":"1.1.9.1","depth":3,"anchor":"#91","path":"MD/9. More Usefull Tools.md","ref":"MD/9. More Usefull Tools.md#91","articles":[]},"previous":{"title":"8.12 EMP_bar_plot","level":"1.1.8.12","depth":3,"path":"MD/8.12 EMP_barplot.md","ref":"MD/8.12 EMP_barplot.md","articles":[]},"dir":"ltr"},"config":{"plugins":["code","pageview-count","tbfed-pagefooter","favicon","-highlight","prism","google-tongji-with-multiple-channel","search-pro","expandable-chapters","hide-element","back-to-top-button","splitter","auto-scroll-table","-lunr","-search","-sharing","sharing-plus","chapter-fold","multilingual-index"],"styles":{"website":"assets/styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © 382983280@qq.com 2024","modify_label":"更新时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"chapter-fold":{},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"livereload":{},"splitter":{},"google-tongji-with-multiple-channel":{"multipleChannelConfig":{},"url":"https://www.googletagmanager.com/gtag/js","token":"G-YE9M3Z1JB4"},"search-pro":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"auto-scroll-table":{},"code":{"copyButtons":true},"hide-element":{"elements":[".gitbook-link"]},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"assets/favicon.ico","bookmark":"assets/favicon.ico","appleTouch":"assets/favicon.ico","appleTouchMore":{"120x120":"assets/favicon.ico","180x180":"assets/favicon.ico"}},"multilingual-index":{"enableSuper":true},"back-to-top-button":{},"pageview-count":{},"sharing":{"all":["facebook","google","linkedin","twitter","weibo","qq"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"theme":"default","author":"Bingdong Liu","pdf":{"pageBreaksBefore":"/","headerTemplate":null,"paperSize":"a4","margin":{"right":62,"left":62,"top":56,"bottom":56},"fontSize":12,"fontFamily":"Arial","footerTemplate":null,"chapterMark":"pagebreak","pageNumbers":true},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"isbn":"","variables":{},"title":"Bingdong Liu","language":"en","links":{"sharing":{"all":true,"facebook":true,"google":true,"twitter":true,"weibo":true},"sidebar":{"EasyMultiProfiler":"https://github.com/liubingdong/EasyMultiProfiler"}},"gitbook":"*","description":"EasyMultiProfiler.","extension":null},"file":{"path":"MD/9. More Usefull Tools.md","mtime":"2025-12-06T08:33:54.760Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2025-12-06T08:41:23.186Z"},"basePath":"..","book":{"language":"en"}});
         });
     </script>
 </div>
