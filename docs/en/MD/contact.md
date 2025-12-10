@@ -11,3 +11,4 @@
 
 * 👇👇👇If our package helps your studies publish, please cite our paper below:
 
+EasyMultiProfiler: an efficient multi-omics data integration and analysis workflow for microbiome research ***SCIENCE CHINA Life Sciences*** (https://doi.org/10.1007/s11427-025-3035-0)

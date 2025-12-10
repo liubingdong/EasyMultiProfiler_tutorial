@@ -11,3 +11,4 @@
 
 * 👇👇👇如果我们工具有帮助到您的文章发表，非常感谢您能引用我们的文章。
 
+EasyMultiProfiler: an efficient multi-omics data integration and analysis workflow for microbiome research ***SCIENCE CHINA Life Sciences*** (https://doi.org/10.1007/s11427-025-3035-0)

@@ -4,7 +4,7 @@
     <head>
         <meta charset="UTF-8">
         <meta content="text/html; charset=utf-8" http-equiv="Content-Type">
-        <title>8.12 EMP_bar_plot · Bingdong Liu</title>
+        <title>8.12 EMP_barplot · Bingdong Liu</title>
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="description" content="">
         <meta name="generator" content="GitBook 3.2.3">
@@ -1006,7 +1006,7 @@
                 <a href="8.12 EMP_barplot.html">
             
                     
-                    8.12 EMP_bar_plot
+                    8.12 EMP_barplot
             
                 </a>
             
@@ -1208,6 +1208,19 @@
             
         </li>
     
+        <li class="chapter " data-level="1.1.10.9" data-path="10.9 qpcr.html">
+            
+                <a href="10.9 qpcr.html">
+            
+                    
+                    10.9 qPCR example
+            
+                </a>
+            
+
+            
+        </li>
+    
 
             </ul>
             
@@ -1261,7 +1274,7 @@
     <!-- Title -->
     <h1>
         <i class="fa fa-circle-o-notch fa-spin"></i>
-        <a href=".." >8.12 EMP_bar_plot</a>
+        <a href=".." >8.12 EMP_barplot</a>
     </h1>
 </div>
 
@@ -1282,7 +1295,7 @@
 <p>&#x1F3F7;&#xFE0F;<strong>Example&#xFF1A;</strong></p>
 <pre class="language-"><code class="lang-R">MAE |&gt; 
   EMP_assay_extract(&apos;host_gene&apos;,pattern = &apos;A1BG&apos;,pattern_ref = &apos;feature&apos;) |&gt;
-  EMP_boxplot(method=&apos;t.test&apos;,estimate_group=&apos;Group&apos;)
+  EMP_barplot(method=&apos;t.test&apos;,estimate_group=&apos;Group&apos;)
 </code></pre>
 <div style="text-align: center;">     
   <img src="../tutorial_figs/A1BG_barplot.jpg" style="zoom: 30%;"> 
@@ -1319,7 +1332,18 @@
   <img src="../tutorial_figs/ACAD10_barplot_sig.jpg" style="zoom: 40%;"> 
 </div>
 
-<h3 id="815-combining-multiple-features">8.1.5 Combining Multiple Features</h3>
+<h3 id="815-break-the-y-axis">8.1.5 Break the Y axis</h3>
+<p>&#x1F3F7;&#xFE0F;<strong>Example&#xFF1A;</strong></p>
+<pre class="language-"><code class="lang-R">MAE |&gt;
+  EMP_assay_extract(&apos;host_gene&apos;,pattern = &apos;ACAD10&apos;) |&gt; 
+  EMP_barplot(estimate_group = &apos;Group&apos;,label = &apos;p.signif&apos;,
+              label.size=6,y_break = c(50,240))
+</code></pre>
+<div style="text-align: center;">     
+  <img src="../tutorial_figs/barplot_breakY.jpg" style="zoom: 30%;"> 
+</div>
+
+<h3 id="816-combining-multiple-features">8.1.6 Combining Multiple Features</h3>
 <p>&#x1F3F7;&#xFE0F;<strong>Example&#xFF1A;</strong></p>
 <pre class="language-"><code class="lang-R">MAE |&gt;
   EMP_assay_extract(&apos;host_gene&apos;,pattern = &apos;A1BG&apos;) |&gt; 
@@ -1329,7 +1353,7 @@
   <img src="../tutorial_figs/A1BG_barplot4.jpg" style="zoom: 40%;"> 
 </div>
 
-<h3 id="816-modifying-comparison-groups">8.1.6 Modifying Comparison Groups</h3>
+<h3 id="817-modifying-comparison-groups">8.1.7 Modifying Comparison Groups</h3>
 <p>&#x1F3F7;&#xFE0F;<strong>Example1&#xFF1A;</strong>Comparing all groups to Group A only</p>
 <pre class="language-"><code class="lang-R">MAE |&gt;
   EMP_assay_extract(&apos;host_gene&apos;,pattern = &apos;A1BG&apos;) |&gt; 
@@ -1352,7 +1376,7 @@
   <img src="../tutorial_figs/A1BG_barplot6.jpg" style="zoom: 40%;"> 
 </div>
 
-<h3 id="817-paired-tests">8.1.7 Paired Tests</h3>
+<h3 id="818-paired-tests">8.1.8 Paired Tests</h3>
 <p>&#x1F3F7;&#xFE0F;<strong>Example&#xFF1A;</strong></p>
 <pre class="language-"><code class="lang-R">MAE |&gt;
   EMP_assay_extract(&apos;host_gene&apos;,pattern = &apos;A1BG&apos;) |&gt; 
@@ -1363,7 +1387,7 @@
   <img src="../tutorial_figs/A1BG_barplot7.jpg" style="zoom: 40%;"> 
 </div>
 
-<h3 id="818-creating-graphpad-style-plots">8.1.8 Creating GraphPad-Style Plots</h3>
+<h3 id="819-creating-graphpad-style-plots">8.1.9 Creating GraphPad-Style Plots</h3>
 <p>&#x1F3F7;&#xFE0F;<strong>Example1&#xFF1A;</strong></p>
 <p>Loading the style package:</p>
 <pre class="language-"><code class="lang-R">if (!requireNamespace(&quot;ggprism&quot;, quietly=TRUE)) install.packages(&quot;ggprism&quot;)
@@ -1395,7 +1419,7 @@ library(ggprism)
 </div> 
 
 <footer class="page-footer"><span class="copyright">Copyright &#xA9; 382983280@qq.com 2024 all right reserved&#xFF0C;powered by Gitbook</span><span class="footer-modification">&#x66F4;&#x65B0;&#x65F6;&#x95F4;&#xFF1A;
-2025-12-06 16:18:57
+2025-12-10 21:08:59
 </span></footer>
                                 
                                 </section>
@@ -1439,7 +1463,7 @@ library(ggprism)
     <script>
         var gitbook = gitbook || [];
         gitbook.push(function() {
-            gitbook.page.hasChanged({"page":{"title":"8.12 EMP_bar_plot","level":"1.1.8.12","depth":3,"next":{"title":"Chapter 9 More Useful Tools","level":"1.1.9","depth":2,"path":"MD/9. More Usefull Tools.md","ref":"MD/9. More Usefull Tools.md","articles":[{"title":"9.1 str_detect_multi","level":"1.1.9.1","depth":3,"anchor":"#91","path":"MD/9. More Usefull Tools.md","ref":"MD/9. More Usefull Tools.md#91","articles":[]},{"title":"9.2 EMP_to_EMP1","level":"1.1.9.2","depth":3,"anchor":"#92","path":"MD/9. More Usefull Tools.md","ref":"MD/9. More Usefull Tools.md#92","articles":[]},{"title":"9.3 top_detect","level":"1.1.9.3","depth":3,"anchor":"#93","path":"MD/9. More Usefull Tools.md","ref":"MD/9. More Usefull Tools.md#93","articles":[]},{"title":"9.4 stat_result","level":"1.1.9.4","depth":3,"anchor":"#94","path":"MD/9. More Usefull Tools.md","ref":"MD/9. More Usefull Tools.md#94","articles":[]}]},"previous":{"title":"8.11 EMP_network_plot","level":"1.1.8.11","depth":3,"path":"MD/8.11 EMP_network_plot.md","ref":"MD/8.11 EMP_network_plot.md","articles":[]},"dir":"ltr"},"config":{"plugins":["code","pageview-count","tbfed-pagefooter","favicon","-highlight","prism","google-tongji-with-multiple-channel","search-pro","expandable-chapters","hide-element","back-to-top-button","splitter","auto-scroll-table","-lunr","-search","-sharing","sharing-plus","chapter-fold","multilingual-index"],"styles":{"website":"assets/styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © 382983280@qq.com 2024","modify_label":"更新时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"chapter-fold":{},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"livereload":{},"splitter":{},"google-tongji-with-multiple-channel":{"multipleChannelConfig":{},"url":"https://www.googletagmanager.com/gtag/js","token":"G-YE9M3Z1JB4"},"search-pro":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"auto-scroll-table":{},"code":{"copyButtons":true},"hide-element":{"elements":[".gitbook-link"]},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"assets/favicon.ico","bookmark":"assets/favicon.ico","appleTouch":"assets/favicon.ico","appleTouchMore":{"120x120":"assets/favicon.ico","180x180":"assets/favicon.ico"}},"multilingual-index":{"enableSuper":true},"back-to-top-button":{},"pageview-count":{},"sharing":{"all":["facebook","google","linkedin","twitter","weibo","qq"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"theme":"default","author":"Bingdong Liu","pdf":{"pageBreaksBefore":"/","headerTemplate":null,"paperSize":"a4","margin":{"right":62,"left":62,"top":56,"bottom":56},"fontSize":12,"fontFamily":"Arial","footerTemplate":null,"chapterMark":"pagebreak","pageNumbers":true},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"isbn":"","variables":{},"title":"Bingdong Liu","language":"en","links":{"sharing":{"all":true,"facebook":true,"google":true,"twitter":true,"weibo":true},"sidebar":{"EasyMultiProfiler":"https://github.com/liubingdong/EasyMultiProfiler"}},"gitbook":"*","description":"EasyMultiProfiler.","extension":null},"file":{"path":"MD/8.12 EMP_barplot.md","mtime":"2025-12-06T08:18:57.461Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2025-12-06T08:41:23.186Z"},"basePath":"..","book":{"language":"en"}});
+            gitbook.page.hasChanged({"page":{"title":"8.12 EMP_barplot","level":"1.1.8.12","depth":3,"next":{"title":"Chapter 9 More Useful Tools","level":"1.1.9","depth":2,"path":"MD/9. More Usefull Tools.md","ref":"MD/9. More Usefull Tools.md","articles":[{"title":"9.1 str_detect_multi","level":"1.1.9.1","depth":3,"anchor":"#91","path":"MD/9. More Usefull Tools.md","ref":"MD/9. More Usefull Tools.md#91","articles":[]},{"title":"9.2 EMP_to_EMP1","level":"1.1.9.2","depth":3,"anchor":"#92","path":"MD/9. More Usefull Tools.md","ref":"MD/9. More Usefull Tools.md#92","articles":[]},{"title":"9.3 top_detect","level":"1.1.9.3","depth":3,"anchor":"#93","path":"MD/9. More Usefull Tools.md","ref":"MD/9. More Usefull Tools.md#93","articles":[]},{"title":"9.4 stat_result","level":"1.1.9.4","depth":3,"anchor":"#94","path":"MD/9. More Usefull Tools.md","ref":"MD/9. More Usefull Tools.md#94","articles":[]}]},"previous":{"title":"8.11 EMP_network_plot","level":"1.1.8.11","depth":3,"path":"MD/8.11 EMP_network_plot.md","ref":"MD/8.11 EMP_network_plot.md","articles":[]},"dir":"ltr"},"config":{"plugins":["code","pageview-count","tbfed-pagefooter","favicon","-highlight","prism","google-tongji-with-multiple-channel","search-pro","expandable-chapters","hide-element","back-to-top-button","splitter","auto-scroll-table","-lunr","-search","-sharing","sharing-plus","chapter-fold","multilingual-index"],"styles":{"website":"assets/styles/website.css"},"pluginsConfig":{"tbfed-pagefooter":{"copyright":"Copyright © 382983280@qq.com 2024","modify_label":"更新时间：","modify_format":"YYYY-MM-DD HH:mm:ss"},"chapter-fold":{},"prism":{"css":["prismjs/themes/prism-tomorrow.css"]},"livereload":{},"splitter":{},"google-tongji-with-multiple-channel":{"multipleChannelConfig":{},"url":"https://www.googletagmanager.com/gtag/js","token":"G-YE9M3Z1JB4"},"search-pro":{},"sharing-plus":{"qq":false,"all":["facebook","google","twitter","instapaper","linkedin","pocket","stumbleupon"],"douban":false,"facebook":true,"weibo":false,"instapaper":false,"whatsapp":false,"hatenaBookmark":false,"twitter":true,"messenger":false,"line":false,"vk":false,"pocket":true,"google":false,"viber":false,"stumbleupon":false,"qzone":false,"linkedin":false},"auto-scroll-table":{},"code":{"copyButtons":true},"hide-element":{"elements":[".gitbook-link"]},"fontsettings":{"theme":"white","family":"sans","size":2},"favicon":{"shortcut":"assets/favicon.ico","bookmark":"assets/favicon.ico","appleTouch":"assets/favicon.ico","appleTouchMore":{"120x120":"assets/favicon.ico","180x180":"assets/favicon.ico"}},"multilingual-index":{"enableSuper":true},"back-to-top-button":{},"pageview-count":{},"sharing":{"all":["facebook","google","linkedin","twitter","weibo","qq"]},"theme-default":{"styles":{"website":"styles/website.css","pdf":"styles/pdf.css","epub":"styles/epub.css","mobi":"styles/mobi.css","ebook":"styles/ebook.css","print":"styles/print.css"},"showLevel":false},"expandable-chapters":{}},"theme":"default","author":"Bingdong Liu","pdf":{"pageBreaksBefore":"/","headerTemplate":null,"paperSize":"a4","margin":{"right":62,"left":62,"top":56,"bottom":56},"fontSize":12,"fontFamily":"Arial","footerTemplate":null,"chapterMark":"pagebreak","pageNumbers":true},"structure":{"langs":"LANGS.md","readme":"README.md","glossary":"GLOSSARY.md","summary":"SUMMARY.md"},"isbn":"","variables":{},"title":"Bingdong Liu","language":"en","links":{"sharing":{"all":true,"facebook":true,"google":true,"twitter":true,"weibo":true},"sidebar":{"EasyMultiProfiler":"https://github.com/liubingdong/EasyMultiProfiler"}},"gitbook":"*","description":"EasyMultiProfiler.","extension":null},"file":{"path":"MD/8.12 EMP_barplot.md","mtime":"2025-12-10T13:08:59.989Z","type":"markdown"},"gitbook":{"version":"3.2.3","time":"2025-12-10T13:45:37.383Z"},"basePath":"..","book":{"language":"en"}});
         });
     </script>
 </div>
